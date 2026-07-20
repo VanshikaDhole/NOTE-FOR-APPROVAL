@@ -10,7 +10,18 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": ":memory:"
+        }
+      }
+    }
+  },
   "dependencies": {
+    "@cap-js/sqlite": "^3.0.2",
     "@sap/cds": "^10.0.3"
   },
   "devDependencies": {
