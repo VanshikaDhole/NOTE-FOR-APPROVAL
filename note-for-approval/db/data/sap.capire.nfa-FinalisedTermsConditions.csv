@@ -1,0 +1,12 @@
+ID,paymentTerms,milestone,performanceBond,warranty,termsOfDelivery,incoterms,liquidatedDamages,applicableTaxes,createdAt,createdBy,modifiedAt,modifiedBy
+1,Net 60,Project kickoff,Yes,12 months,Door delivery,FOB,2%,GST,2026-07-20T09:10:00Z,automated,2026-07-20T09:10:00Z,automated
+2,Net 45,Phase 1 completion,No,18 months,Warehouse delivery,CIF,1.5%,VAT,2026-07-20T09:12:00Z,automated,2026-07-20T09:12:00Z,automated
+3,Net 30,Prototype delivery,Yes,24 months,Factory delivery,EXW,3%,GST,2026-07-20T09:14:00Z,automated,2026-07-20T09:14:00Z,automated
+4,Net 30,Final acceptance,Yes,12 months,Port delivery,DDP,2.5%,VAT,2026-07-20T09:16:00Z,automated,2026-07-20T09:16:00Z,automated
+5,Net 60,Supplier validation,No,18 months,Air freight,FCA,1%,GST,2026-07-20T09:18:00Z,automated,2026-07-20T09:18:00Z,automated
+6,Net 45,Sample approval,Yes,24 months,Sea freight,DDU,2%,VAT,2026-07-20T09:20:00Z,automated,2026-07-20T09:20:00Z,automated
+7,Net 30,Design sign-off,Yes,12 months,Inland transport,FOB,0.5%,GST,2026-07-20T09:22:00Z,automated,2026-07-20T09:22:00Z,automated
+8,Net 90,Initial shipment,No,18 months,Customs cleared,CIF,2%,VAT,2026-07-20T09:24:00Z,automated,2026-07-20T09:24:00Z,automated
+9,Net 45,Quality inspection,Yes,24 months,Factory dispatch,EXW,1.5%,GST,2026-07-20T09:26:00Z,automated,2026-07-20T09:26:00Z,automated
+10,Net 30,Warranty activation,No,12 months,Vendor pickup,DDP,2.5%,VAT,2026-07-20T09:28:00Z,automated,2026-07-20T09:28:00Z,automated
+11,Net 60,Maintenance review,Yes,18 months,On-site delivery,FCA,1%,GST,2026-07-20T09:30:00Z,automated,2026-07-20T09:30:00Z,automated

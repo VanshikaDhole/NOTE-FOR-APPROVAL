@@ -1,0 +1,12 @@
+ID,vendorsInvited,vendorsResponded,vendorsShortlisted,evaluationSummary,numberOfVendorsSelected,selectedVendorName,selectedVendorCode,awardJustification,createdAt,createdBy,modifiedAt,modifiedBy
+1,12,10,5,Strong technical fit,1,Vendor A,VA100,Lowest compliant bid,2026-07-20T10:38:00Z,automated,2026-07-20T10:38:00Z,automated
+2,8,6,3,Competitive pricing,1,Vendor B,VB101,Best service offering,2026-07-20T10:40:00Z,automated,2026-07-20T10:40:00Z,automated
+3,14,11,4,High reliability,1,Vendor C,VC102,Proven delivery record,2026-07-20T10:42:00Z,automated,2026-07-20T10:42:00Z,automated
+4,10,8,4,Strong compliance,1,Vendor D,VD103,Superior quality metrics,2026-07-20T10:44:00Z,automated,2026-07-20T10:44:00Z,automated
+5,9,7,3,Lower risk profile,1,Vendor E,VE104,Excellent reference checks,2026-07-20T10:46:00Z,automated,2026-07-20T10:46:00Z,automated
+6,11,9,4,Best scalability,1,Vendor F,VF105,Flexible delivery model,2026-07-20T10:48:00Z,automated,2026-07-20T10:48:00Z,automated
+7,13,12,6,Strong governance,1,Vendor G,VG106,Comprehensive support,2026-07-20T10:50:00Z,automated,2026-07-20T10:50:00Z,automated
+8,7,5,2,Good innovation,1,Vendor H,VH107,Value-added services,2026-07-20T10:52:00Z,automated,2026-07-20T10:52:00Z,automated
+9,15,13,7,Excellent references,1,Vendor I,VI108,Cost-effective solution,2026-07-20T10:54:00Z,automated,2026-07-20T10:54:00Z,automated
+10,10,8,4,Robust delivery,1,Vendor J,VJ109,Strong partnership potential,2026-07-20T10:56:00Z,automated,2026-07-20T10:56:00Z,automated
+11,12,10,5,Optimal pricing,1,Vendor K,VK110,Best total value,2026-07-20T10:58:00Z,automated,2026-07-20T10:58:00Z,automated

@@ -1,0 +1,12 @@
+ID,procurementName,aribaSourcingEventRef,procurementObjectives,procurementBackground,procurementRoute,procurementStrategy,expenseCategory,createdAt,createdBy,modifiedAt,modifiedBy
+1,Office Supplies,ARB-2026-001,Cost reduction,Streamline ordering,Open tender,Competitive bidding,Operational,2026-07-20T10:16:00Z,automated,2026-07-20T10:16:00Z,automated
+2,IT Equipment,ARB-2026-002,Vendor consolidation,Replace legacy systems,Direct award,Negotiated tender,Capital,2026-07-20T10:18:00Z,automated,2026-07-20T10:18:00Z,automated
+3,Facility Services,ARB-2026-003,Quality improvement,Service standardization,Restricted tender,Framework agreement,Service,2026-07-20T10:20:00Z,automated,2026-07-20T10:20:00Z,automated
+4,Marketing Collateral,ARB-2026-004,Compliance alignment,Brand refresh,Open tender,Lot-based sourcing,Marketing,2026-07-20T10:22:00Z,automated,2026-07-20T10:22:00Z,automated
+5,Logistics Support,ARB-2026-005,Risk mitigation,Carrier evaluation,Limited tender,Category sourcing,Logistics,2026-07-20T10:24:00Z,automated,2026-07-20T10:24:00Z,automated
+6,Consulting Services,ARB-2026-006,Cost control,Project advisory,Sole source,Managed services,Professional,2026-07-20T10:26:00Z,automated,2026-07-20T10:26:00Z,automated
+7,Maintenance Parts,ARB-2026-007,Inventory reduction,Spare parts review,Open tender,Volume discount,Maintenance,2026-07-20T10:28:00Z,automated,2026-07-20T10:28:00Z,automated
+8,Training Programs,ARB-2026-008,Provider evaluation,Skills development,Restricted tender,Competitive evaluation,HR,2026-07-20T10:30:00Z,automated,2026-07-20T10:30:00Z,automated
+9,Security Services,ARB-2026-009,Contract renewal,Vendor performance,Direct award,Best value,Security,2026-07-20T10:32:00Z,automated,2026-07-20T10:32:00Z,automated
+10,Equipment Rental,ARB-2026-010,Utilization improvement,Asset sharing,Limited tender,Lease negotiation,Capital,2026-07-20T10:34:00Z,automated,2026-07-20T10:34:00Z,automated
+11,Energy Supply,ARB-2026-011,Sustainability goals,Green sourcing,Open tender,Strategic sourcing,Utilities,2026-07-20T10:36:00Z,automated,2026-07-20T10:36:00Z,automated
