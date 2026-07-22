@@ -1,1 +1,81 @@
-/* Enter your custom styles here */
+/* Freestyle NFA UI styling */
+.nfaPage {
+    background: #f5f7fb;
+}
+
+.nfaPageContent {
+    padding: 1rem 1.5rem 2rem;
+}
+
+.nfaPageTitle {
+    margin-bottom: 0.75rem;
+}
+
+.nfaSection {
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.nfaSection .sapMPanelHdr {
+    background: #eff4ff;
+    color: #1f3b72;
+    font-weight: 700;
+}
+
+.nfaSectionBody {
+    padding: 0.5rem 0.75rem 0.75rem;
+}
+
+.nfaFieldRow {
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+}
+
+.nfaFieldGroup {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    box-sizing: border-box;
+    flex: 0 0 calc(33.333% - 0.4rem);
+    max-width: calc(33.333% - 0.4rem);
+}
+
+.nfaFieldWidth50 {
+    flex-basis: calc(50% - 0.3rem);
+    max-width: calc(50% - 0.3rem);
+}
+
+.nfaFieldWidth100 {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+.nfaFieldLabel {
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.25rem;
+}
+
+.nfaFieldGroup .sapMInput,
+.nfaFieldGroup .sapMTextArea,
+.nfaFieldGroup .sapMDatePicker {
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .nfaFieldGroup {
+        flex-basis: calc(50% - 0.3rem);
+        max-width: calc(50% - 0.3rem);
+    }
+}
+
+@media (max-width: 600px) {
+    .nfaFieldGroup,
+    .nfaFieldWidth50,
+    .nfaFieldWidth33 {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}

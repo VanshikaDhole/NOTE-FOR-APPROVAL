@@ -1,4 +1,5 @@
 using{cuid, managed} from '@sap/cds/common';
+using{Attachments} from '@cap-js/attachments';
 
 namespace sap.capire.nfa;
 
@@ -10,6 +11,7 @@ entity ProcurementOverview : cuid, managed {
     procurementRoute             : String(40);    
     procurementStrategy          : String(100);  
     expenseCategory              : String(100);  
+    attachments                  : Composition of many Attachments;
 }
  
 entity MaterialHistory : cuid, managed {
@@ -70,4 +72,46 @@ entity OrganisationOther : cuid, managed {
     companyCode                    : String(100);
     otherConditions                : LargeString;  
     supportingDocuments            : LargeString;  
+}
+
+entity EKKO_PurchaseOrder_Header: cuid,managed{
+     client              : String(3); 
+     purchasingDocument  : String(10); 
+     companyCode         : String(4);  
+     documentCategory    : String(1);  
+     documentType        : String(4);  
+     control             : String(1);  
+     deletionIndicator   : String(1);  
+     status              : String(2);  
+     itemInterval        : String(5);
+     lastItem            : String(5);
+     supplier            : String(10);
+     language            : String(1);
+     paymentTerms        : String(4);
+     paymentInDays1      : Integer;
+     paymentInDays2      : Integer;
+     paymentInDays3      : Integer;
+}
+
+entity EKPO_PurchaseOrder_Item : cuid,managed{
+    client                 : String(3);
+    purchasingDocument     : String(10);
+    item                   : String(5);
+    documentItem           : String(32);
+    deletionIndicator      : String(1);
+    origin                 : String(1);
+    shortText              : String(40);
+    material               : String(40);
+    externalMaterial       : String(40);
+    companyCode            : String(4);
+    plant                  : String(4);
+    storageLocation        : String(4);
+    trackingNumber         : String(10);
+    materialGroup          : String(9);
+    infoRecord             : String(10);
+    supplierMaterialNumber : String(35);
+    targetQuantity         : Decimal(13,3);
+    purchaseOrderQuantity  : Decimal(13,3);
+    orderUnit              : String(3);
+
 }
