@@ -18,10 +18,11 @@
                         <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Strategy" class="nfaFieldLabel" /><Input placeholder="Enter procurement strategy" /></VBox>
                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Expense Category" class="nfaFieldLabel" /><Input placeholder="Enter expense category" /></VBox>
+                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Objectives" class="nfaFieldLabel" /><Input placeholder="Enter procurement objectives" /></VBox>
                         </HBox>
                         <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Procurement Objectives" class="nfaFieldLabel" /><Input placeholder="Enter procurement objectives" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Procurement Background" class="nfaFieldLabel" /><Input placeholder="Enter procurement background" /></VBox>
+
+                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Background" class="nfaFieldLabel" /><Input placeholder="Enter procurement background" /></VBox>
                         </HBox>
                     </VBox>
                 </Panel>
@@ -213,7 +214,7 @@
                         </HBox>
                     </VBox>
                 </Panel>
-                <Panel headerText="Attachments" class="nfaSection" expandable="false">
+                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
                     <VBox class="nfaSectionBody">
                         <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
                             <VBox class="nfaFieldGroup nfaFieldWidth100">
@@ -233,9 +234,42 @@
                             </VBox>
                         </HBox>
                     </VBox>
+                </Panel> -->
+                <Panel headerText="Attachments" class="nfaSection">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <u:FileUploader
+                                id="fileUploader"
+                                tooltip="Choose one or more attachments"
+                                change=".onFileChange"
+                                multiple="true"
+                                buttonOnly="true"
+                                buttonText="Choose File"/>
+                            <Text text="Selected files" class="attachmentListTitle sapUiSmallMarginTop" visible="{= ${attachments>/items}.length > 0 }" />
+                            <List
+                                id="attachmentList"
+                                items="{attachments>/items}"
+                                showSeparators="Inner"
+                                class="attachmentList"
+                                visible="{= ${attachments>/items}.length > 0 }">
+                                <CustomListItem>
+                                    <HBox width="100%" alignItems="Center" justifyContent="SpaceBetween" class="attachmentRow">
+                                        <VBox class="attachmentDetails">
+                                            <Text text="{attachments>name}" wrapping="false" class="attachmentName" />
+                                            <Text text="{path: 'attachments>size', formatter: '.formatFileSize'}" class="attachmentMeta" />
+                                        </VBox>
+                                        <Button
+                                            icon="sap-icon://decline"
+                                            type="Transparent"
+                                            tooltip="Remove attachment"
+                                            press=".onRemoveAttachment" />
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                        </VBox>
+                    </content>
                 </Panel>
                 
-
                 <HBox justifyContent="End" class="sapUiResponsiveMargin sapUiSmallMarginTop">
                     <Button text="Save Draft" class="sapUiTinyMarginEnd" />
                     <Button text="Submit for Approval" type="Emphasized" />
