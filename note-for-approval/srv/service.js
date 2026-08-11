@@ -2,6 +2,7 @@
 const cds = require("@sap/cds");
 const { generatePDF } = require("./pdfService");
 const { sendTestMail } = require("./emailService");
+const { importDocument } = require("./integration/documentImport");
 
 //console.log(ariba_doc);
 
@@ -14,8 +15,6 @@ const {
 } = require("./integration/ariba");
 
 module.exports = cds.service.impl(async function () {
-    const ariba_doc = await cds.connect.to("Ariba");
-    console.log(ariba_doc);
     const {
         NFA,
         ProcurementOverview,
@@ -28,6 +27,15 @@ module.exports = cds.service.impl(async function () {
         EKPO_PurchaseOrder_Item,
         attachments
     } = this.entities;
+
+    this.on("importDocument", async (req) => {
+        try {
+            return await importDocument(req.data);
+        } catch (error) {
+            console.error("Ariba DocumentImport failed:", error.message);
+            return req.reject(error.statusCode || 502, error.message);
+        }
+    });
 
 this.on("getProcurementDetails", async (req) => {
     try {
@@ -80,7 +88,7 @@ try {
 
 this.on("submitNFA", async (req) => {
 
-    const tx = cds.transaction(req);
+    const tx = cds.tx(req);
 
     try {
 

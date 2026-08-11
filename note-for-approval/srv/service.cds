@@ -57,6 +57,24 @@ type SubmitResponse {
     procurementID : UUID;
 }
 
+type DocumentImportResponse {
+    documentId   : String;
+    status       : Integer;
+    errorMessage : String;
+}
+
+action importDocument(
+    action                      : String,
+    contents                    : LargeBinary,
+    documentId                  : String,
+    documentName                : String,
+    onBehalfUserId              : String,
+    onBehalfUserPasswordAdapter : String,
+    workspaceId                 : String,
+    partition                   : String,
+    variant                     : String
+) returns DocumentImportResponse;
+
 action submitNFA(
     data : LargeString
 ) returns SubmitResponse;

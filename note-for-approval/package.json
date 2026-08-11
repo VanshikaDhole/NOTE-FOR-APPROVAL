@@ -4,7 +4,7 @@
   "description": "Welcome to your new CAP project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test test/*.test.js",
     "watch-nfa-fiori": "cds watch --open nfafiori/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "keywords": [],
@@ -13,14 +13,6 @@
   "type": "commonjs",
   "cds": {
     "requires": {
-      "Ariba": {
-        "kind": "SOAP",
-        "model": "/external/DocumentImport.wsdl",
-        "credentials": {
-          "destination": "NFA_BTP", 
-          "path":"/"
-        }
-      },
       "db": {
         "kind": "sqlite",
         "credentials": {
@@ -37,6 +29,7 @@
     "@sap-cloud-sdk/resilience": "^4.8.0",
     "axios": "^1.18.1",
     "dotenv": "^17.4.2",
+    "fast-xml-parser": "^5.5.9",
     "nodemailer": "^9.0.5",
     "pdfkit": "^0.19.1",
     "sqlite": "^5.1.1"
