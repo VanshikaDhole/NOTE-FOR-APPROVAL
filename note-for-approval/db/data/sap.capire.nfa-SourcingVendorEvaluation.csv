@@ -1,12 +1,11 @@
-ID,vendorsInvited,vendorsResponded,vendorsShortlisted,evaluationSummary,numberOfVendorsSelected,selectedVendorName,selectedVendorCode,awardJustification,createdAt,createdBy,modifiedAt,modifiedBy
-1,12,10,5,Strong technical fit,1,Vendor A,VA100,Lowest compliant bid,2026-07-20T10:38:00Z,automated,2026-07-20T10:38:00Z,automated
-2,8,6,3,Competitive pricing,1,Vendor B,VB101,Best service offering,2026-07-20T10:40:00Z,automated,2026-07-20T10:40:00Z,automated
-3,14,11,4,High reliability,1,Vendor C,VC102,Proven delivery record,2026-07-20T10:42:00Z,automated,2026-07-20T10:42:00Z,automated
-4,10,8,4,Strong compliance,1,Vendor D,VD103,Superior quality metrics,2026-07-20T10:44:00Z,automated,2026-07-20T10:44:00Z,automated
-5,9,7,3,Lower risk profile,1,Vendor E,VE104,Excellent reference checks,2026-07-20T10:46:00Z,automated,2026-07-20T10:46:00Z,automated
-6,11,9,4,Best scalability,1,Vendor F,VF105,Flexible delivery model,2026-07-20T10:48:00Z,automated,2026-07-20T10:48:00Z,automated
-7,13,12,6,Strong governance,1,Vendor G,VG106,Comprehensive support,2026-07-20T10:50:00Z,automated,2026-07-20T10:50:00Z,automated
-8,7,5,2,Good innovation,1,Vendor H,VH107,Value-added services,2026-07-20T10:52:00Z,automated,2026-07-20T10:52:00Z,automated
-9,15,13,7,Excellent references,1,Vendor I,VI108,Cost-effective solution,2026-07-20T10:54:00Z,automated,2026-07-20T10:54:00Z,automated
-10,10,8,4,Robust delivery,1,Vendor J,VJ109,Strong partnership potential,2026-07-20T10:56:00Z,automated,2026-07-20T10:56:00Z,automated
-11,12,10,5,Optimal pricing,1,Vendor K,VK110,Best total value,2026-07-20T10:58:00Z,automated,2026-07-20T10:58:00Z,automated
+ID,nfa_ID,vendorsInvited,vendorsResponded,vendorsShortlisted,evaluationSummary,numberOfVendorsSelected,selectedVendorName,selectedVendorCode,awardJustification,createdAt,createdBy,modifiedAt,modifiedBy
+d1111111-1111-1111-1111-111111111111,11111111-1111-1111-1111-111111111111,8,6,3,Technical and commercial evaluation completed successfully,1,Dell Technologies,VEN1001,Dell offered the best value with competitive pricing and extended warranty,2026-07-28T09:00:00Z,admin,2026-07-28T09:00:00Z,admin
+d2222222-2222-2222-2222-222222222222,22222222-2222-2222-2222-222222222222,7,5,2,Commercial comparison performed among shortlisted vendors,1,HP India,VEN1002,HP met all technical specifications at the lowest evaluated cost,2026-07-28T09:15:00Z,admin,2026-07-28T09:20:00Z,admin
+d3333333-3333-3333-3333-333333333333,33333333-3333-3333-3333-333333333333,6,5,2,Server benchmarking and vendor capability assessment completed,1,HPE,VEN1003,HPE provided superior performance and comprehensive support services,2026-07-28T09:30:00Z,admin,2026-07-28T09:45:00Z,manager
+d4444444-4444-4444-4444-444444444444,44444444-4444-4444-4444-444444444444,5,4,2,Technical evaluation completed for networking equipment,1,Cisco Systems,VEN1004,Cisco achieved the highest technical evaluation score,2026-07-28T10:00:00Z,user1,2026-07-28T10:05:00Z,user1
+d5555555-5555-5555-5555-555555555555,55555555-5555-5555-5555-555555555555,6,6,3,Quality and commercial evaluation completed,1,Canon India,VEN1005,Canon provided the best combination of price and service support,2026-07-28T10:15:00Z,user2,2026-07-28T10:30:00Z,manager
+d6666666-6666-6666-6666-666666666666,66666666-6666-6666-6666-666666666666,5,5,2,Furniture quality inspection and pricing comparison completed,1,Godrej Interio,VEN1006,Godrej satisfied quality standards and delivery schedule,2026-07-28T10:45:00Z,user3,2026-07-28T11:00:00Z,user3
+d7777777-7777-7777-7777-777777777777,77777777-7777-7777-7777-777777777777,4,4,2,Software licensing evaluation completed,1,Microsoft,VEN1007,Enterprise agreement provided maximum cost savings and flexibility,2026-07-28T11:15:00Z,user4,2026-07-28T11:20:00Z,user4
+d8888888-8888-8888-8888-888888888888,88888888-8888-8888-8888-888888888888,5,4,2,Cloud infrastructure proposals reviewed,1,Amazon Web Services,VEN1008,AWS offered the most scalable and cost-effective cloud solution,2026-07-28T11:30:00Z,admin,2026-07-28T11:45:00Z,director
+d9999999-9999-9999-9999-999999999999,99999999-9999-9999-9999-999999999999,6,5,3,Security solution technical demonstration completed,1,Hikvision,VEN1009,Hikvision met all security requirements within the approved budget,2026-07-28T12:00:00Z,user5,2026-07-28T12:10:00Z,user5
+daaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,7,6,3,Comprehensive infrastructure evaluation completed,1,Dell EMC,VEN1010,Dell EMC achieved the highest combined technical and commercial score,2026-07-28T12:30:00Z,admin,2026-07-28T12:35:00Z,admin

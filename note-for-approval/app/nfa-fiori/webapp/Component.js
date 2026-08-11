@@ -2,7 +2,6 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "nfafiori/model/models"
 ], (UIComponent, models) => {
-    "use strict";
 
     return UIComponent.extend("nfafiori.Component", {
         metadata: {

@@ -1,6 +1,6 @@
 /* Freestyle NFA UI styling */
 .nfaPage {
-    background: #f5f7fb;
+    background: #c8d6f3;
 }
 
 .nfaPageContent {
@@ -18,7 +18,7 @@
 }
 
 .nfaSection .sapMPanelHdr {
-    background: #eff4ff;
+    background: #9dc4f0;
     color: #1f3b72;
     font-weight: 700;
 }

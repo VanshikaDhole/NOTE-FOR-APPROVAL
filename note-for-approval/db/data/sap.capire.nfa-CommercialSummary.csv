@@ -1,12 +1,11 @@
-ID,recommendations,totalValueOfProcurement,currency,securedSavings,costIncrease,createdAt,createdBy,modifiedAt,modifiedBy
-1,Increase vendor consolidation,125000,USD,12000,0,2026-07-20T08:15:00Z,automated,2026-07-20T08:15:00Z,automated
-2,Negotiate bulk discounts,98000,USD,9500,0,2026-07-20T08:20:00Z,automated,2026-07-20T08:20:00Z,automated
-3,Move to preferred suppliers,147500,USD,17000,0,2026-07-20T08:25:00Z,automated,2026-07-20T08:25:00Z,automated
-4,Standardize procurement contracts,112000,USD,10800,0,2026-07-20T08:30:00Z,automated,2026-07-20T08:30:00Z,automated
-5,Centralize approval workflow,134500,USD,15000,0,2026-07-20T08:35:00Z,automated,2026-07-20T08:35:00Z,automated
-6,Review supplier performance,89000,USD,8200,0,2026-07-20T08:40:00Z,automated,2026-07-20T08:40:00Z,automated
-7,Implement vendor scorecard,158000,USD,16500,0,2026-07-20T08:45:00Z,automated,2026-07-20T08:45:00Z,automated
-8,Reduce maverick spend,103500,USD,9800,0,2026-07-20T08:50:00Z,automated,2026-07-20T08:50:00Z,automated
-9,Consolidate purchase orders,121000,USD,11200,0,2026-07-20T08:55:00Z,automated,2026-07-20T08:55:00Z,automated
-10,Improve demand forecasting,137500,USD,14000,0,2026-07-20T09:00:00Z,automated,2026-07-20T09:00:00Z,automated
-11,Optimize inventory levels,148200,USD,15500,0,2026-07-20T09:05:00Z,automated,2026-07-20T09:05:00Z,automated
+ID,nfa_ID,recommendations,totalValueOfProcurement,currency,securedSavings,costIncrease,createdAt,createdBy,modifiedAt,modifiedBy
+e1111111-1111-1111-1111-111111111111,11111111-1111-1111-1111-111111111111,Award contract to Dell Technologies based on best technical and commercial evaluation.,85000,USD,5000,0,2026-07-28T09:00:00Z,admin,2026-07-28T09:00:00Z,admin
+e2222222-2222-2222-2222-222222222222,22222222-2222-2222-2222-222222222222,Proceed with HP India as the recommended supplier.,54000,USD,3000,0,2026-07-28T09:15:00Z,admin,2026-07-28T09:20:00Z,admin
+e3333333-3333-3333-3333-333333333333,33333333-3333-3333-3333-333333333333,Approve HPE proposal for server infrastructure expansion.,96000,USD,4000,1000,2026-07-28T09:30:00Z,admin,2026-07-28T09:45:00Z,manager
+e4444444-4444-4444-4444-444444444444,44444444-4444-4444-4444-444444444444,Select Cisco Systems for network modernization project.,75000,USD,4500,0,2026-07-28T10:00:00Z,user1,2026-07-28T10:05:00Z,user1
+e5555555-5555-5555-5555-555555555555,55555555-5555-5555-5555-555555555555,Approve Canon India quotation for office printers.,12000,USD,800,0,2026-07-28T10:15:00Z,user2,2026-07-28T10:30:00Z,manager
+e6666666-6666-6666-6666-666666666666,66666666-6666-6666-6666-666666666666,Award office furniture contract to Godrej Interio.,18000,USD,1500,0,2026-07-28T10:45:00Z,user3,2026-07-28T11:00:00Z,user3
+e7777777-7777-7777-7777-777777777777,77777777-7777-7777-7777-777777777777,Renew Microsoft enterprise licensing agreement.,90000,USD,7000,0,2026-07-28T11:15:00Z,user4,2026-07-28T11:20:00Z,user4
+e8888888-8888-8888-8888-888888888888,88888888-8888-8888-8888-888888888888,Proceed with AWS cloud migration proposal.,25000,USD,2500,0,2026-07-28T11:30:00Z,admin,2026-07-28T11:45:00Z,director
+e9999999-9999-9999-9999-999999999999,99999999-9999-9999-9999-999999999999,Approve Hikvision security equipment procurement.,13200,USD,900,200,2026-07-28T12:00:00Z,user5,2026-07-28T12:10:00Z,user5
+eaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,Award Dell EMC contract for data center modernization.,95000,USD,6000,1500,2026-07-28T12:30:00Z,admin,2026-07-28T12:35:00Z,admin

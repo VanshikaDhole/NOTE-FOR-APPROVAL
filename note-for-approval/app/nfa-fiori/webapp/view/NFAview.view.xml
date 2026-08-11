@@ -2,279 +2,588 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:u="sap.ui.unified"
-    xmlns:layout="sap.ui.layout">
-    <Page id="page" title="NFA App" class="nfaPage">
+    xmlns:core="sap.ui.core">
+    <Page id="idNFAPage" title="NFA App" class="nfaPage">
         <content>
-            <VBox class="nfaPageContent" width="100%">
-                <Title text="Note for Approval" level="H2" class="nfaPageTitle" />
+            <IconTabBar class="nfaPageContent" expandable="false">
+                <items>
+                    <IconTabFilter text="Create NFA">
+                        <content>
+                            <VBox class="nfaPageContent" width="100%">
+                                <Title text="Note for Approval" level="H2" class="nfaPageTitle" />
+                      <Panel headerText="Procurement Overview" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Name" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/procurementName}" placeholder="Enter procurement name" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Ariba Sourcing Event Ref" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/aribaSourcingEventRef}" 
+                                            change="onFetchProcurementData" placeholder="Enter Ariba sourcing event ref"  /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Route" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/procurementRoute}" placeholder="Enter procurement route" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Strategy" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/procurementStrategy}" placeholder="Enter procurement strategy" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Expense Category" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/expenseCategory}" placeholder="Enter expense category" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Objectives" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/procurementObjectives}" placeholder="Enter procurement objectives" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
 
-                <Panel headerText="Procurement Overview" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Name" class="nfaFieldLabel" /><Input placeholder="Enter procurement name" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Ariba Sourcing Event Ref" class="nfaFieldLabel" /><Input placeholder="Enter Ariba sourcing event ref" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Route" class="nfaFieldLabel" /><Input placeholder="Enter procurement route" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Strategy" class="nfaFieldLabel" /><Input placeholder="Enter procurement strategy" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Expense Category" class="nfaFieldLabel" /><Input placeholder="Enter expense category" /></VBox>
-                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Objectives" class="nfaFieldLabel" /><Input placeholder="Enter procurement objectives" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Background" class="nfaFieldLabel" /><Input value="{viewModel>/procurement/procurementBackground}" placeholder="Enter procurement background" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Background" class="nfaFieldLabel" /><Input placeholder="Enter procurement background" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Material History" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Code" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/materialCode}" placeholder="Enter material code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Description" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/materialDescription}" placeholder="Enter material description" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Quantity Procured" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/quantityProcured}" placeholder="Enter quantity procured" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Awarded Unit Price" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/awardedUnitPrice}" placeholder="Enter awarded unit price" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Number" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/lastPONumber}" placeholder="Enter last PO number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Date" class="nfaFieldLabel" /><DatePicker value="{viewModel>/materialHistory/lastPODate}" placeholder="Select last PO date" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Vendor" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/lastPOVendor}" placeholder="Enter last PO vendor" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Value" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/lastPOValue}" placeholder="Enter last PO value" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Unit Price" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/lastPOUnitPrice}" placeholder="Enter last PO unit price" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Last PO" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/variancePercentVsLastPO}" placeholder="Enter variance percentage" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Qty" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/last6MonthsPurchaseQty}" placeholder="Enter last 6M purchase qty" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Value" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/last6MonthsPurchaseValue}" placeholder="Enter last 6M purchase value" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Unit Price 6M" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/avgUnitPrice6Months}" placeholder="Enter average unit price" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Avg 6M" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/variancePercentVsAvg6Months}" placeholder="Enter variance percentage" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 6M" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/consumption6Months}" placeholder="Enter consumption 6M" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 12M" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/consumption12Months}" placeholder="Enter consumption 12M" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Monthly Consumption Rate" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/avgMonthlyConsumptionRate}" placeholder="Enter average monthly consumption rate" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Current Stock" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/currentStock}" placeholder="Enter current stock" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Stock Cover Months" class="nfaFieldLabel" /><Input value="{viewModel>/materialHistory/stockCoverMonths}" placeholder="Enter stock cover months" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Price Justification" class="nfaFieldLabel" /><TextArea value="{viewModel>/materialHistory/priceJustification}" rows="2" growing="true" placeholder="Enter price justification" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                <Panel headerText="Material History" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Code" class="nfaFieldLabel" /><Input placeholder="Enter material code" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Description" class="nfaFieldLabel" /><Input placeholder="Enter material description" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Quantity Procured" class="nfaFieldLabel" /><Input placeholder="Enter quantity procured" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Awarded Unit Price" class="nfaFieldLabel" /><Input placeholder="Enter awarded unit price" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Number" class="nfaFieldLabel" /><Input placeholder="Enter last PO number" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Date" class="nfaFieldLabel" /><DatePicker placeholder="Select last PO date" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Vendor" class="nfaFieldLabel" /><Input placeholder="Enter last PO vendor" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Value" class="nfaFieldLabel" /><Input placeholder="Enter last PO value" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Unit Price" class="nfaFieldLabel" /><Input placeholder="Enter last PO unit price" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Last PO" class="nfaFieldLabel" /><Input placeholder="Enter variance percentage" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Qty" class="nfaFieldLabel" /><Input placeholder="Enter last 6M purchase qty" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Value" class="nfaFieldLabel" /><Input placeholder="Enter last 6M purchase value" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Unit Price 6M" class="nfaFieldLabel" /><Input placeholder="Enter average unit price" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Avg 6M" class="nfaFieldLabel" /><Input placeholder="Enter variance percentage" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 6M" class="nfaFieldLabel" /><Input placeholder="Enter consumption 6M" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 12M" class="nfaFieldLabel" /><Input placeholder="Enter consumption 12M" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Monthly Consumption Rate" class="nfaFieldLabel" /><Input placeholder="Enter average monthly consumption rate" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Current Stock" class="nfaFieldLabel" /><Input placeholder="Enter current stock" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Stock Cover Months" class="nfaFieldLabel" /><Input placeholder="Enter stock cover months" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Price Justification" class="nfaFieldLabel" /><TextArea rows="2" growing="true" placeholder="Enter price justification" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Sourcing Vendor Evaluation" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Invited" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/vendorsInvited}" placeholder="Enter number of vendors invited" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Responded" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/vendorsResponded}" placeholder="Enter number of vendors responded" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Shortlisted" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/vendorsShortlisted}" placeholder="Enter vendors shortlisted" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Evaluation Summary" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/evaluationSummary}" placeholder="Enter evaluation summary" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Number of Vendors Selected" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/numberOfVendorsSelected}" placeholder="Enter number of vendors selected" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Name" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/selectedVendorName}" placeholder="Enter selected vendor name" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Code" class="nfaFieldLabel" /><Input value="{viewModel>/sourcingVendorEvaluation/selectedVendorCode}" placeholder="Enter selected vendor code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Award Justification" class="nfaFieldLabel" /><TextArea value="{viewModel>/sourcingVendorEvaluation/awardJustification}" rows="2" growing="true" placeholder="Enter award justification" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                <Panel headerText="Sourcing Vendor Evaluation" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Invited" class="nfaFieldLabel" /><Input placeholder="Enter number of vendors invited" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Responded" class="nfaFieldLabel" /><Input placeholder="Enter number of vendors responded" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Shortlisted" class="nfaFieldLabel" /><Input placeholder="Enter vendors shortlisted" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Evaluation Summary" class="nfaFieldLabel" /><Input placeholder="Enter evaluation summary" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Number of Vendors Selected" class="nfaFieldLabel" /><Input placeholder="Enter number of vendors selected" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Name" class="nfaFieldLabel" /><Input placeholder="Enter selected vendor name" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Code" class="nfaFieldLabel" /><Input placeholder="Enter selected vendor code" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Award Justification" class="nfaFieldLabel" /><TextArea rows="2" growing="true" placeholder="Enter award justification" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Commercial Summary" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Total Value of Procurement" class="nfaFieldLabel" /><Input value="{viewModel>/commercialSummary/totalValueOfProcurement}" placeholder="Enter total value of procurement" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Currency" class="nfaFieldLabel" /><Input value="{viewModel>/commercialSummary/currency}" placeholder="Enter currency" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Secured Savings" class="nfaFieldLabel" /><Input value="{viewModel>/commercialSummary/securedSavings}" placeholder="Enter secured savings" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Cost Increase" class="nfaFieldLabel" /><Input value="{viewModel>/commercialSummary/costIncrease}" placeholder="Enter cost increase" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Recommendations" class="nfaFieldLabel" /><TextArea value="{viewModel>/commercialSummary/recommendations}" rows="2" growing="true" placeholder="Enter recommendations" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                <Panel headerText="Commercial Summary" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Total Value of Procurement" class="nfaFieldLabel" /><Input placeholder="Enter total value of procurement" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Currency" class="nfaFieldLabel" /><Input placeholder="Enter currency" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Secured Savings" class="nfaFieldLabel" /><Input placeholder="Enter secured savings" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Cost Increase" class="nfaFieldLabel" /><Input placeholder="Enter cost increase" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Recommendations" class="nfaFieldLabel" /><TextArea rows="2" growing="true" placeholder="Enter recommendations" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Finalised Terms and Conditions" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/paymentTerms}" placeholder="Enter payment terms" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Milestone" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/milestone}" placeholder="Enter milestone" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Performance Bond" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/performanceBond}" placeholder="Enter performance bond" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Warranty" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/warranty}" placeholder="Enter warranty" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Terms of Delivery" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/termsOfDelivery}" placeholder="Enter terms of delivery" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Incoterms" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/incoterms}" placeholder="Enter incoterms" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Liquidated Damages" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/liquidatedDamages}" placeholder="Enter liquidated damages" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Applicable Taxes" class="nfaFieldLabel" /><Input value="{viewModel>/finalisedTermsConditions/applicableTaxes}" placeholder="Enter applicable taxes" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                <Panel headerText="Finalised Terms and Conditions" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input placeholder="Enter payment terms" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Milestone" class="nfaFieldLabel" /><Input placeholder="Enter milestone" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Performance Bond" class="nfaFieldLabel" /><Input placeholder="Enter performance bond" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Warranty" class="nfaFieldLabel" /><Input placeholder="Enter warranty" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Terms of Delivery" class="nfaFieldLabel" /><Input placeholder="Enter terms of delivery" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Incoterms" class="nfaFieldLabel" /><Input placeholder="Enter incoterms" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Liquidated Damages" class="nfaFieldLabel" /><Input placeholder="Enter liquidated damages" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Applicable Taxes" class="nfaFieldLabel" /><Input placeholder="Enter applicable taxes" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Organisation and Other" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Group" class="nfaFieldLabel" /><Input value="{viewModel>/organisationOther/purchasingGroup}" placeholder="Enter purchasing group" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input value="{viewModel>/organisationOther/companyCode}" placeholder="Enter company code" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Other Conditions" class="nfaFieldLabel" /><TextArea value="{viewModel>/organisationOther/otherConditions}" rows="2" growing="true" placeholder="Enter other conditions" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Supporting Documents" class="nfaFieldLabel" /><TextArea value="{viewModel>/organisationOther/supportingDocuments}" rows="2" growing="true" placeholder="Enter supporting documents" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                <Panel headerText="Organisation and Other" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Group" class="nfaFieldLabel" /><Input placeholder="Enter purchasing group" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input placeholder="Enter company code" /></VBox>
-                        </HBox>
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Other Conditions" class="nfaFieldLabel" /><TextArea rows="2" growing="true" placeholder="Enter other conditions" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Supporting Documents" class="nfaFieldLabel" /><TextArea rows="2" growing="true" placeholder="Enter supporting documents" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Purchase Order Header" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/client}" placeholder="Enter client" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/purchasingDocument}" placeholder="Enter purchasing document" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/companyCode}" placeholder="Enter company code" /></VBox>
+                                        </HBox>
 
-                <Panel headerText="Purchase Order Header" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input placeholder="Enter client" /></VBox>
-                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input placeholder="Enter purchasing document" /></VBox>
-                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input placeholder="Enter company code" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Category" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/documentCategory}" placeholder="Enter document category" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Type" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/documentType}" placeholder="Enter document type" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Control" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/control}" placeholder="Enter control" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Category" class="nfaFieldLabel" /><Input placeholder="Enter document category" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Type" class="nfaFieldLabel" /><Input placeholder="Enter document type" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Control" class="nfaFieldLabel" /><Input placeholder="Enter control" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/deletionIndicator}" placeholder="Enter deletion indicator" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Status" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/status}" placeholder="Enter status" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item Interval" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/itemInterval}" placeholder="Enter item interval" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input placeholder="Enter deletion indicator" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Status" class="nfaFieldLabel" /><Input placeholder="Enter status" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item Interval" class="nfaFieldLabel" /><Input placeholder="Enter item interval" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last Item" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/lastItem}" placeholder="Enter last item" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/supplier}" placeholder="Enter supplier" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Language" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/language}" placeholder="Enter language" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last Item" class="nfaFieldLabel" /><Input placeholder="Enter last item" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier" class="nfaFieldLabel" /><Input placeholder="Enter supplier" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Language" class="nfaFieldLabel" /><Input placeholder="Enter language" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderHeader/paymentTerms}" placeholder="Enter payment terms" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 1" class="nfaFieldLabel" /><Input type="Number" value="{viewModel>/purchaseOrderHeader/paymentInDays1}" placeholder="Enter payment days" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 2" class="nfaFieldLabel" /><Input type="Number" value="{viewModel>/purchaseOrderHeader/paymentInDays2}" placeholder="Enter payment days" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input placeholder="Enter payment terms" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 1" class="nfaFieldLabel" /><Input type="Number" placeholder="Enter payment days" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 2" class="nfaFieldLabel" /><Input type="Number" placeholder="Enter payment days" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 3" class="nfaFieldLabel" /><Input type="Number" value="{viewModel>/purchaseOrderHeader/paymentInDays3}" placeholder="Enter payment days" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 3" class="nfaFieldLabel" /><Input type="Number" placeholder="Enter payment days" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
+                                <Panel headerText="Purchase Order Item" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/client}" placeholder="Enter client" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/purchasingDocument}" placeholder="Enter purchasing document" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/item}" placeholder="Enter item" /></VBox>
+                                        </HBox>
 
-                <Panel headerText="Purchase Order Item" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input placeholder="Enter client" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input placeholder="Enter purchasing document" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item" class="nfaFieldLabel" /><Input placeholder="Enter item" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Item" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/documentItem}" placeholder="Enter document item" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/deletionIndicator}" placeholder="Enter deletion indicator" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Origin" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/origin}" placeholder="Enter origin" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Item" class="nfaFieldLabel" /><Input placeholder="Enter document item" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input placeholder="Enter deletion indicator" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Origin" class="nfaFieldLabel" /><Input placeholder="Enter origin" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Short Text" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/shortText}" placeholder="Enter short text" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/material}" placeholder="Enter material" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="External Material" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/externalMaterial}" placeholder="Enter external material" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Short Text" class="nfaFieldLabel" /><Input placeholder="Enter short text" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material" class="nfaFieldLabel" /><Input placeholder="Enter material" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="External Material" class="nfaFieldLabel" /><Input placeholder="Enter external material" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/companyCode}" placeholder="Enter company code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Plant" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/plant}" placeholder="Enter plant" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Storage Location" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/storageLocation}" placeholder="Enter storage location" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input placeholder="Enter company code" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Plant" class="nfaFieldLabel" /><Input placeholder="Enter plant" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Storage Location" class="nfaFieldLabel" /><Input placeholder="Enter storage location" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Tracking Number" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/trackingNumber}" placeholder="Enter tracking number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Group" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/materialGroup}" placeholder="Enter material group" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Info Record" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/infoRecord}" placeholder="Enter info record" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Tracking Number" class="nfaFieldLabel" /><Input placeholder="Enter tracking number" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Group" class="nfaFieldLabel" /><Input placeholder="Enter material group" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Info Record" class="nfaFieldLabel" /><Input placeholder="Enter info record" /></VBox>
-                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier Material Number" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/supplierMaterialNumber}" placeholder="Enter supplier material number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Target Quantity" class="nfaFieldLabel" /><Input type="Number" value="{viewModel>/purchaseOrderItem/targetQuantity}" placeholder="Enter target quantity" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchase Order Quantity" class="nfaFieldLabel" /><Input type="Number" value="{viewModel>/purchaseOrderItem/purchaseOrderQuantity}" placeholder="Enter purchase order quantity" /></VBox>
+                                        </HBox>
 
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier Material Number" class="nfaFieldLabel" /><Input placeholder="Enter supplier material number" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Target Quantity" class="nfaFieldLabel" /><Input type="Number" placeholder="Enter target quantity" /></VBox>
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchase Order Quantity" class="nfaFieldLabel" /><Input type="Number" placeholder="Enter purchase order quantity" /></VBox>
-                        </HBox>
-
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Order Unit" class="nfaFieldLabel" /><Input placeholder="Enter order unit" /></VBox>
-                        </HBox>
-                    </VBox>
-                </Panel>
-                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
-                    <VBox class="nfaSectionBody">
-                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                            <VBox class="nfaFieldGroup nfaFieldWidth100">
-                                <Label text="Upload Attachment" class="nfaFieldLabel" />
-                                <u:FileUploader
-                                    id="fileUploader"
-                                    name="myFileUpload"
-                                    width="100%"
-                                    placeholder="Choose a file"
-                                    uploadUrl="/upload"
-                                    uploadComplete=".handleUploadComplete" />
-                                <Button
-                                    text="Upload Attachment"
-                                    type="Emphasized"
-                                    press=".handleUploadPress"
-                                    class="sapUiSmallMarginTop" />
-                            </VBox>
-                        </HBox>
-                    </VBox>
-                </Panel> -->
-                <Panel headerText="Attachments" class="nfaSection">
-                    <content>
-                        <VBox class="sapUiSmallMargin">
-                            <u:FileUploader
-                                id="fileUploader"
-                                tooltip="Choose one or more attachments"
-                                change=".onFileChange"
-                                multiple="true"
-                                buttonOnly="true"
-                                buttonText="Choose File"/>
-                            <Text text="Selected files" class="attachmentListTitle sapUiSmallMarginTop" visible="{= ${attachments>/items}.length > 0 }" />
-                            <List
-                                id="attachmentList"
-                                items="{attachments>/items}"
-                                showSeparators="Inner"
-                                class="attachmentList"
-                                visible="{= ${attachments>/items}.length > 0 }">
-                                <CustomListItem>
-                                    <HBox width="100%" alignItems="Center" justifyContent="SpaceBetween" class="attachmentRow">
-                                        <VBox class="attachmentDetails">
-                                            <Text text="{attachments>name}" wrapping="false" class="attachmentName" />
-                                            <Text text="{path: 'attachments>size', formatter: '.formatFileSize'}" class="attachmentMeta" />
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Order Unit" class="nfaFieldLabel" /><Input value="{viewModel>/purchaseOrderItem/orderUnit}" placeholder="Enter order unit" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+                                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100">
+                                                <Label text="Upload Attachment" class="nfaFieldLabel" />
+                                                <u:FileUploader
+                                                    id="fileUploader"
+                                                    name="myFileUpload"
+                                                    width="100%"
+                                                    placeholder="Choose a file"
+                                                    uploadUrl="/upload"
+                                                    uploadComplete=".handleUploadComplete" />
+                                                <Button
+                                                    text="Upload Attachment"
+                                                    type="Emphasized"
+                                                    press=".handleUploadPress"
+                                                    class="sapUiSmallMarginTop" />
+                                            </VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel> -->
+                                <Panel headerText="Attachments" class="nfaSection">
+                                    <content>
+                                        <VBox class="sapUiSmallMargin">
+                                            <u:FileUploader
+                                                id="idFileUploader"
+                                                tooltip="Choose one or more attachments"
+                                                multiple="true"
+                                                buttonOnly="true"
+                                                buttonText="Choose File"
+                                                change="onFileChange"/>
+                                            <Text text="Selected files" class="attachmentListTitle sapUiSmallMarginTop" visible="{= ${attachments>/items}.length > 0 }" />
+                                            <List
+                                                id="idItemsAttachmentList"
+                                                items="{attachments>/items}"
+                                                showSeparators="Inner"
+                                                class="attachmentList"
+                                                visible="{= ${attachments>/items}.length > 0 }">
+                                                <CustomListItem>
+                                                    <HBox width="100%" alignItems="Center" justifyContent="SpaceBetween" class="attachmentRow">
+                                                        <VBox class="attachmentDetails">
+                                                            <Text text="{attachments>name}" wrapping="false" class="attachmentName" />
+                                                            <Text text="{path: 'attachments>size', formatter: '.formatFileSize'}" class="attachmentMeta" />
+                                                        </VBox>
+                                                        <Button
+                                                            icon="sap-icon://decline"
+                                                            type="Transparent"
+                                                            tooltip="Remove attachment"
+                                                            press="onRemoveAttachment" />
+                                                    </HBox>
+                                                </CustomListItem>
+                                            </List>
                                         </VBox>
-                                        <Button
-                                            icon="sap-icon://decline"
-                                            type="Transparent"
-                                            tooltip="Remove attachment"
-                                            press=".onRemoveAttachment" />
-                                    </HBox>
-                                </CustomListItem>
-                            </List>
-                        </VBox>
-                    </content>
-                </Panel>
-                
-                <HBox justifyContent="End" class="sapUiResponsiveMargin sapUiSmallMarginTop">
-                    <Button text="Save Draft" class="sapUiTinyMarginEnd" />
-                    <Button text="Submit for Approval" type="Emphasized" />
-                </HBox>
-            </VBox>
+                                    </content>
+                                </Panel>
+                                
+                                <HBox
+                                    justifyContent="End"
+                                    class="sapUiResponsiveMargin sapUiSmallMarginTop">
+<!-- 
+                                    <Button
+                                        text="Save Draft"
+                                        class="sapUiTinyMarginEnd"
+                                        press="onSaveDraft"/> -->
+
+                                    <Button
+                                        text="Submit for Approval"
+                                        type="Emphasized"
+                                        class="sapUiTinyMarginEnd"
+                                        press="onSubmitForApproval"/>
+
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="Existing NFA">
+                        <content>
+                            <VBox class="nfaPageContent" width="100%">
+                                <Panel headerText="Search" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="NFA Number" class="nfaFieldLabel" /><Input id="existingNFANumber" placeholder="Enter NFA Number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33" style="margin-top: 1rem;"><Button text="Search" press="onSearchExistingNFA" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Procurement Overview" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Name" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/procurementName}" placeholder="Enter procurement name" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Ariba Sourcing Event Ref" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/aribaSourcingEventRef}" placeholder="Enter Ariba sourcing event ref" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Route" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/procurementRoute}" placeholder="Enter procurement route" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Strategy" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/procurementStrategy}" placeholder="Enter procurement strategy" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Expense Category" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/expenseCategory}" placeholder="Enter expense category" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Objectives" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/procurementObjectives}" placeholder="Enter procurement objectives" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Procurement Background" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/procurement/procurementBackground}" placeholder="Enter procurement background" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Material History" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Code" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/materialCode}" placeholder="Enter material code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Description" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/materialDescription}" placeholder="Enter material description" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Quantity Procured" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/quantityProcured}" placeholder="Enter quantity procured" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Awarded Unit Price" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/awardedUnitPrice}" placeholder="Enter awarded unit price" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Number" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/lastPONumber}" placeholder="Enter last PO number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Date" class="nfaFieldLabel" /><DatePicker editable="false" value="{existingModel>/materialHistory/lastPODate}" placeholder="Select last PO date" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Vendor" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/lastPOVendor}" placeholder="Enter last PO vendor" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Value" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/lastPOValue}" placeholder="Enter last PO value" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last PO Unit Price" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/lastPOUnitPrice}" placeholder="Enter last PO unit price" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Last PO" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/variancePercentVsLastPO}" placeholder="Enter variance percentage" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Qty" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/last6MonthsPurchaseQty}" placeholder="Enter last 6M purchase qty" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last 6M Purchase Value" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/last6MonthsPurchaseValue}" placeholder="Enter last 6M purchase value" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Unit Price 6M" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/avgUnitPrice6Months}" placeholder="Enter average unit price" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Variance % vs Avg 6M" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/variancePercentVsAvg6Months}" placeholder="Enter variance percentage" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 6M" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/consumption6Months}" placeholder="Enter consumption 6M" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Consumption 12M" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/consumption12Months}" placeholder="Enter consumption 12M" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Avg Monthly Consumption Rate" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/avgMonthlyConsumptionRate}" placeholder="Enter average monthly consumption rate" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Current Stock" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/currentStock}" placeholder="Enter current stock" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Stock Cover Months" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/materialHistory/stockCoverMonths}" placeholder="Enter stock cover months" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Price Justification" class="nfaFieldLabel" /><TextArea editable="false" value="{existingModel>/materialHistory/priceJustification}" rows="2" growing="true" placeholder="Enter price justification" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Sourcing Vendor Evaluation" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Invited" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/vendorsInvited}" placeholder="Enter number of vendors invited" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Responded" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/vendorsResponded}" placeholder="Enter number of vendors responded" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Vendors Shortlisted" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/vendorsShortlisted}" placeholder="Enter vendors shortlisted" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Evaluation Summary" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/evaluationSummary}" placeholder="Enter evaluation summary" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Number of Vendors Selected" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/numberOfVendorsSelected}" placeholder="Enter number of vendors selected" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Name" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/selectedVendorName}" placeholder="Enter selected vendor name" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Selected Vendor Code" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/sourcingVendorEvaluation/selectedVendorCode}" placeholder="Enter selected vendor code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Award Justification" class="nfaFieldLabel" /><TextArea editable="false" value="{existingModel>/sourcingVendorEvaluation/awardJustification}" rows="2" growing="true" placeholder="Enter award justification" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Commercial Summary" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Total Value of Procurement" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/commercialSummary/totalValueOfProcurement}" placeholder="Enter total value of procurement" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Currency" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/commercialSummary/currency}" placeholder="Enter currency" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Secured Savings" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/commercialSummary/securedSavings}" placeholder="Enter secured savings" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Cost Increase" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/commercialSummary/costIncrease}" placeholder="Enter cost increase" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Recommendations" class="nfaFieldLabel" /><TextArea editable="false" value="{existingModel>/commercialSummary/recommendations}" rows="2" growing="true" placeholder="Enter recommendations" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Finalised Terms and Conditions" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/paymentTerms}" placeholder="Enter payment terms" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Milestone" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/milestone}" placeholder="Enter milestone" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Performance Bond" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/performanceBond}" placeholder="Enter performance bond" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Warranty" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/warranty}" placeholder="Enter warranty" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Terms of Delivery" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/termsOfDelivery}" placeholder="Enter terms of delivery" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Incoterms" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/incoterms}" placeholder="Enter incoterms" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Liquidated Damages" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/liquidatedDamages}" placeholder="Enter liquidated damages" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Applicable Taxes" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/finalisedTermsConditions/applicableTaxes}" placeholder="Enter applicable taxes" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Organisation and Other" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Group" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/organisationOther/purchasingGroup}" placeholder="Enter purchasing group" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/organisationOther/companyCode}" placeholder="Enter company code" /></VBox>
+                                        </HBox>
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Other Conditions" class="nfaFieldLabel" /><TextArea editable="false" value="{existingModel>/organisationOther/otherConditions}" rows="2" growing="true" placeholder="Enter other conditions" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100"><Label text="Supporting Documents" class="nfaFieldLabel" /><TextArea editable="false" value="{existingModel>/organisationOther/supportingDocuments}" rows="2" growing="true" placeholder="Enter supporting documents" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Purchase Order Header" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/client}" placeholder="Enter client" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/purchasingDocument}" placeholder="Enter purchasing document" /></VBox>
+                                             <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/companyCode}" placeholder="Enter company code" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Category" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/documentCategory}" placeholder="Enter document category" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Type" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/documentType}" placeholder="Enter document type" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Control" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/control}" placeholder="Enter control" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/deletionIndicator}" placeholder="Enter deletion indicator" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Status" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/status}" placeholder="Enter status" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item Interval" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/itemInterval}" placeholder="Enter item interval" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Last Item" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/lastItem}" placeholder="Enter last item" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/supplier}" placeholder="Enter supplier" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Language" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/language}" placeholder="Enter language" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment Terms" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderHeader/paymentTerms}" placeholder="Enter payment terms" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 1" class="nfaFieldLabel" /><Input type="Number" editable="false" value="{existingModel>/purchaseOrderHeader/paymentInDays1}" placeholder="Enter payment days" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 2" class="nfaFieldLabel" /><Input type="Number" editable="false" value="{existingModel>/purchaseOrderHeader/paymentInDays2}" placeholder="Enter payment days" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Payment in Days 3" class="nfaFieldLabel" /><Input type="Number" editable="false" value="{existingModel>/purchaseOrderHeader/paymentInDays3}" placeholder="Enter payment days" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+
+                                <Panel headerText="Purchase Order Item" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Client" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/client}" placeholder="Enter client" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchasing Document" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/purchasingDocument}" placeholder="Enter purchasing document" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Item" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/item}" placeholder="Enter item" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Document Item" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/documentItem}" placeholder="Enter document item" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Deletion Indicator" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/deletionIndicator}" placeholder="Enter deletion indicator" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Origin" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/origin}" placeholder="Enter origin" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Short Text" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/shortText}" placeholder="Enter short text" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/material}" placeholder="Enter material" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="External Material" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/externalMaterial}" placeholder="Enter external material" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Company Code" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/companyCode}" placeholder="Enter company code" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Plant" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/plant}" placeholder="Enter plant" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Storage Location" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/storageLocation}" placeholder="Enter storage location" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Tracking Number" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/trackingNumber}" placeholder="Enter tracking number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Material Group" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/materialGroup}" placeholder="Enter material group" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Info Record" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/infoRecord}" placeholder="Enter info record" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Supplier Material Number" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/supplierMaterialNumber}" placeholder="Enter supplier material number" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Target Quantity" class="nfaFieldLabel" /><Input type="Number" editable="false" value="{existingModel>/purchaseOrderItem/targetQuantity}" placeholder="Enter target quantity" /></VBox>
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Purchase Order Quantity" class="nfaFieldLabel" /><Input type="Number" editable="false" value="{existingModel>/purchaseOrderItem/purchaseOrderQuantity}" placeholder="Enter purchase order quantity" /></VBox>
+                                        </HBox>
+
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth33"><Label text="Order Unit" class="nfaFieldLabel" /><Input editable="false" value="{existingModel>/purchaseOrderItem/orderUnit}" placeholder="Enter order unit" /></VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+                                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
+                                    <VBox class="nfaSectionBody">
+                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
+                                            <VBox class="nfaFieldGroup nfaFieldWidth100">
+                                                <Label text="Upload Attachment" class="nfaFieldLabel" />
+                                                <u:FileUploader
+                                                    name="myFileUpload"
+                                                    width="100%"
+                                                    placeholder="Choose a file"
+                                                    uploadUrl="/upload"
+                                                    uploadComplete=".handleUploadComplete" />
+                                                <Button
+                                                    text="Upload Attachment"
+                                                    type="Emphasized"
+                                                    press=".handleUploadPress"
+                                                    class="sapUiSmallMarginTop" />
+                                            </VBox>
+                                        </HBox>
+                                    </VBox>
+                                </Panel> -->
+                                <Panel headerText="Attachments" class="nfaSection">
+                                    <content>
+                                        <VBox class="sapUiSmallMargin">
+                                            <u:FileUploader
+                                                tooltip="Choose one or more attachments"
+                                                multiple="true"
+                                                buttonOnly="true"
+                                                enabled="false"
+                                                buttonText="Choose File"/>
+                                            <Text text="Selected files" class="attachmentListTitle sapUiSmallMarginTop" visible="{= ${attachments>/items}.length > 0 }" />
+                                            <List
+                                                items="{attachments>/items}"
+                                                showSeparators="Inner"
+                                                class="attachmentList"
+                                                visible="{= ${attachments>/items}.length > 0 }">
+                                                <CustomListItem>
+                                                    <HBox width="100%" alignItems="Center" justifyContent="SpaceBetween" class="attachmentRow">
+                                                        <VBox class="attachmentDetails">
+                                                            <Link
+                                                                text="{attachments>name}"
+                                                                press="onOpenAttachment"
+                                                                class="attachmentName"/>
+                                                            <Text text="{path: 'attachments>size', formatter: '.formatFileSize'}" class="attachmentMeta" />
+                                                        </VBox>
+                                                        <Button
+                                                            icon="sap-icon://decline"
+                                                            type="Transparent"
+                                                            tooltip="Remove attachment"
+                                                            enabled="false" />
+                                                    </HBox>
+                                                </CustomListItem>
+                                            </List>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                                
+                                <HBox
+                                    justifyContent="End"
+                                    class="sapUiResponsiveMargin sapUiSmallMarginTop">
+
+                                    <Button
+                                        text="Download PDF"
+                                        icon="sap-icon://pdf-attachment"
+                                        type="Accept"
+                                        press="onDownloadPDF"/>
+
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
         </content>
     </Page>
 </mvc:View>

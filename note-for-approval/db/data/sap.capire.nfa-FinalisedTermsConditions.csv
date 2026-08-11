@@ -1,12 +1,11 @@
-ID,paymentTerms,milestone,performanceBond,warranty,termsOfDelivery,incoterms,liquidatedDamages,applicableTaxes,createdAt,createdBy,modifiedAt,modifiedBy
-1,Net 60,Project kickoff,Yes,12 months,Door delivery,FOB,2%,GST,2026-07-20T09:10:00Z,automated,2026-07-20T09:10:00Z,automated
-2,Net 45,Phase 1 completion,No,18 months,Warehouse delivery,CIF,1.5%,VAT,2026-07-20T09:12:00Z,automated,2026-07-20T09:12:00Z,automated
-3,Net 30,Prototype delivery,Yes,24 months,Factory delivery,EXW,3%,GST,2026-07-20T09:14:00Z,automated,2026-07-20T09:14:00Z,automated
-4,Net 30,Final acceptance,Yes,12 months,Port delivery,DDP,2.5%,VAT,2026-07-20T09:16:00Z,automated,2026-07-20T09:16:00Z,automated
-5,Net 60,Supplier validation,No,18 months,Air freight,FCA,1%,GST,2026-07-20T09:18:00Z,automated,2026-07-20T09:18:00Z,automated
-6,Net 45,Sample approval,Yes,24 months,Sea freight,DDU,2%,VAT,2026-07-20T09:20:00Z,automated,2026-07-20T09:20:00Z,automated
-7,Net 30,Design sign-off,Yes,12 months,Inland transport,FOB,0.5%,GST,2026-07-20T09:22:00Z,automated,2026-07-20T09:22:00Z,automated
-8,Net 90,Initial shipment,No,18 months,Customs cleared,CIF,2%,VAT,2026-07-20T09:24:00Z,automated,2026-07-20T09:24:00Z,automated
-9,Net 45,Quality inspection,Yes,24 months,Factory dispatch,EXW,1.5%,GST,2026-07-20T09:26:00Z,automated,2026-07-20T09:26:00Z,automated
-10,Net 30,Warranty activation,No,12 months,Vendor pickup,DDP,2.5%,VAT,2026-07-20T09:28:00Z,automated,2026-07-20T09:28:00Z,automated
-11,Net 60,Maintenance review,Yes,18 months,On-site delivery,FCA,1%,GST,2026-07-20T09:30:00Z,automated,2026-07-20T09:30:00Z,automated
+ID,nfa_ID,paymentTerms,milestone,performanceBond,warranty,termsOfDelivery,incoterms,liquidatedDamages,applicableTaxes,createdAt,createdBy,modifiedAt,modifiedBy
+f1111111-1111-1111-1111-111111111111,11111111-1111-1111-1111-111111111111,Net 30 Days,Delivery and Installation Completed,10% of Contract Value,3 Years Onsite Warranty,Delivery within 30 Days,DAP,0.5% per week (Max 5%),GST 18%,2026-07-28T09:00:00Z,admin,2026-07-28T09:00:00Z,admin
+f2222222-2222-2222-2222-222222222222,22222222-2222-2222-2222-222222222222,Net 45 Days,Successful System Acceptance,10% of Contract Value,3 Years Warranty,Delivery within 25 Days,FCA,0.5% per week (Max 5%),GST 18%,2026-07-28T09:15:00Z,admin,2026-07-28T09:20:00Z,admin
+f3333333-3333-3333-3333-333333333333,33333333-3333-3333-3333-333333333333,Net 60 Days,Server Installation and Testing,15% of Contract Value,5 Years OEM Warranty,Delivery within 45 Days,CIP,1% per week (Max 10%),GST 18%,2026-07-28T09:30:00Z,admin,2026-07-28T09:45:00Z,manager
+f4444444-4444-4444-4444-444444444444,44444444-4444-4444-4444-444444444444,Net 30 Days,Network Commissioning,10% of Contract Value,3 Years OEM Warranty,Delivery within 20 Days,DAP,0.5% per week (Max 5%),GST 18%,2026-07-28T10:00:00Z,user1,2026-07-28T10:05:00Z,user1
+f5555555-5555-5555-5555-555555555555,55555555-5555-5555-5555-555555555555,Net 30 Days,Printer Installation Completed,5% of Contract Value,2 Years Warranty,Delivery within 15 Days,EXW,0.25% per week (Max 3%),GST 18%,2026-07-28T10:15:00Z,user2,2026-07-28T10:30:00Z,manager
+f6666666-6666-6666-6666-666666666666,66666666-6666-6666-6666-666666666666,Net 45 Days,Furniture Installation Completed,5% of Contract Value,2 Years Warranty,Delivery within 20 Days,DAP,0.25% per week (Max 3%),GST 18%,2026-07-28T10:45:00Z,user3,2026-07-28T11:00:00Z,user3
+f7777777-7777-7777-7777-777777777777,77777777-7777-7777-7777-777777777777,Annual Subscription,License Activation Completed,Not Applicable,Subscription Support for 1 Year,Electronic Delivery,N/A,None,GST 18%,2026-07-28T11:15:00Z,user4,2026-07-28T11:20:00Z,user4
+f8888888-8888-8888-8888-888888888888,88888888-8888-8888-8888-888888888888,Monthly Billing,Cloud Environment Provisioned,Not Applicable,24x7 Premium Support,Online Service,N/A,None,GST 18%,2026-07-28T11:30:00Z,admin,2026-07-28T11:45:00Z,director
+f9999999-9999-9999-9999-999999999999,99999999-9999-9999-9999-999999999999,Net 30 Days,Security System Commissioned,10% of Contract Value,3 Years Warranty,Delivery within 30 Days,DAP,0.5% per week (Max 5%),GST 18%,2026-07-28T12:00:00Z,user5,2026-07-28T12:10:00Z,user5
+faaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,Net 60 Days,Data Center Upgrade Completed,15% of Contract Value,5 Years OEM Warranty,Delivery within 60 Days,CIP,1% per week (Max 10%),GST 18%,2026-07-28T12:30:00Z,admin,2026-07-28T12:35:00Z,admin

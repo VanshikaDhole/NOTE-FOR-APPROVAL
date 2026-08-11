@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:typens="urn:Ariba:Sourcing:vrealm_1983"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    name="DocumentImport"
+    targetNamespace="urn:Ariba:Sourcing:vrealm_1983">
+
+    <wsdl:types>
+        <xsd:schema
+            xmlns:typens="urn:Ariba:Sourcing:vrealm_1983"
+            elementFormDefault="qualified"
+            targetNamespace="urn:Ariba:Sourcing:vrealm_1983">
+
+            <xsd:element name="Headers">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="variant" type="xsd:string"/>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="partition" type="xsd:string"/>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="DocumentImportRequest">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element minOccurs="0" name="WSDocumentInputBean_Item">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element maxOccurs="1" minOccurs="0"
+                                        name="item" type="typens:WSDocumentInputBean"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:all>
+                    <xsd:attribute name="partition" type="xsd:string"/>
+                    <xsd:attribute name="variant" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="DocumentImportReply">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element minOccurs="0" name="WSDocumentOutputBean_Item">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element maxOccurs="1" minOccurs="0"
+                                        name="item" type="typens:WSDocumentOutputBean"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:all>
+                    <xsd:attribute name="partition" type="xsd:string"/>
+                    <xsd:attribute name="variant" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:complexType name="WSDocumentInputBean">
+                <xsd:all>
+                    <xsd:element name="Action" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Project Action import type. It can be either 'Create' or 'Update'.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element name="Contents" type="xsd:base64Binary">
+                        <xsd:annotation>
+                            <xsd:documentation>Document contents, base64 encoded.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element name="DocumentId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Specifies the document ID. If Action is Create, do not specify a value. If Action is Update, specify the ID of the document to be updated. You must specify a value for DocumentId or DocumentName.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element name="DocumentName" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Specifies the document name. If Action is Create, specify the name for the new document. If Action is Update, specify the name of the document to update.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element minOccurs="1" name="OnBehalfUserId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Specifies the user ID of the user for whom the SAP Ariba web service performs the action.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element minOccurs="0" name="OnBehalfUserPasswordAdapter" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Specifies the password adapter used to authenticate the OnBehalfUserId. If not using a custom password adapter, this may be omitted.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+
+                    <xsd:element name="WorkspaceId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Specifies the workspace ID of the project containing this document.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="WSDocumentOutputBean">
+                <xsd:all>
+                    <xsd:element name="DocumentId" type="xsd:string"/>
+                    <xsd:element name="ErrorMessage" type="xsd:string"/>
+                    <xsd:element name="Status" type="xsd:integer"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="HeadersMessage">
+        <wsdl:part name="header" element="typens:Headers"/>
+    </wsdl:message>
+
+    <wsdl:message name="DocumentImportRequestMessage">
+        <wsdl:part name="body" element="typens:DocumentImportRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="DocumentImportReplyMessage">
+        <wsdl:part name="body" element="typens:DocumentImportReply"/>
+    </wsdl:message>
+
+    <wsdl:portType name="DocumentImportPortType">
+        <wsdl:operation name="DocumentImportOperation">
+            <wsdl:input message="typens:DocumentImportRequestMessage"/>
+            <wsdl:output message="typens:DocumentImportReplyMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="DocumentImportBinding" type="typens:DocumentImportPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="DocumentImportOperation">
+            <soap:operation soapAction="/Process Definition"/>
+            <wsdl:input>
+                <soap:header message="typens:HeadersMessage" part="header" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="typens:HeadersMessage" part="header" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="DocumentImport">
+        <wsdl:documentation>Ariba Web Service</wsdl:documentation>
+        <wsdl:port binding="typens:DocumentImportBinding" name="DocumentImportPortType">
+            <soap:address location="https://s1.ariba.com/Sourcing/soap/BrainBoxDSAPP-T/DocumentImport"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
