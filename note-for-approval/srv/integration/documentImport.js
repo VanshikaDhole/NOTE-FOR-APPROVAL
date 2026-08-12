@@ -27,7 +27,7 @@ function normalizeBase64(contents) {
         throw new Error("Document contents are required");
     }
 
-    // OData represents LargeBinary values as base64 strings.
+
     if (!/^[A-Za-z0-9+/]*={0,2}$/.test(value) || value.length % 4 !== 0) {
         throw new Error("Document contents must be a valid base64 value");
     }
@@ -120,8 +120,6 @@ async function importDocument(input, execute = executeHttpRequest) {
         { destinationName: DESTINATION_NAME },
         {
             method: "POST",
-            // The destination URL is the complete WSDL endpoint. An explicit
-            // slash changes that URL and is rejected by Ariba.
             url: "",
             headers: {
                 "Content-Type": "text/xml; charset=utf-8",
