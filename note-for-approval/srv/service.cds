@@ -64,15 +64,17 @@ type DocumentImportResponse {
 }
 
 action importDocument(
-    action                      : String,
-    contents                    : LargeBinary,
-    documentId                  : String,
-    documentName                : String,
-    onBehalfUserId              : String,
-    onBehalfUserPasswordAdapter : String,
-    workspaceId                 : String,
-    partition                   : String,
-    variant                     : String
+    ID          : UUID,
+    workspaceId : String
+    // action                      : String,
+    // contents                    : LargeBinary,
+    // documentId                  : String,
+    // documentName                : String,
+    // onBehalfUserId              : String,
+    // onBehalfUserPasswordAdapter : String,
+    // workspaceId                 : String,
+    // partition                   : String,
+    // variant                     : String
 ) returns DocumentImportResponse;
 
 action submitNFA(

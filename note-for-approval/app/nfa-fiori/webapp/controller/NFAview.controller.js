@@ -2,8 +2,12 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], (Controller, JSONModel, MessageToast, MessageBox) => {
+    "sap/m/MessageBox",
+    "sap/m/Dialog",
+    "sap/m/Input",
+    "sap/m/Label",
+    "sap/m/Button"
+], (Controller, JSONModel, MessageToast, MessageBox, Dialog, Input, Label, Button) => {
     "use strict";
 
     return Controller.extend("nfafiori.controller.NFAview", {
@@ -643,9 +647,221 @@ onOpenAttachment: function (oEvent) {
     }
 },
 
+//  Workspace ID popup
+// onImportDocument: function () {
+
+//     // Make sure an NFA has been searched
+//     if (!this._selectedNfaId) {
+//         MessageBox.error("Please search for an NFA first.");
+//         return;
+//     }
+
+//     const oInput = new Input({
+//         width: "100%",
+//         placeholder: "Enter Ariba Workspace ID"
+//     });
+
+//     const oDialog = new Dialog({
+//         title: "Import Document to Ariba",
+//         contentWidth: "450px",
+//         content: [
+//             new Label({
+//                 text: "Ariba Workspace ID",
+//                 required: true
+//             }),
+//             oInput
+//         ],
+
+//         beginButton: new Button({
+//             text: "Import",
+//             type: "Emphasized",
+
+//             press: () => {
+
+//                 const sWorkspaceId =
+//                     oInput.getValue().trim();
+
+//                 if (!sWorkspaceId) {
+//                     MessageBox.error(
+//                         "Please enter the Ariba Workspace ID."
+//                     );
+//                     return;
+//                 }
+
+//                 // Store it temporarily.
+//                 // We will use this in the next steps.
+//                 this._aribaWorkspaceId = sWorkspaceId;
+
+//                 console.log(
+//                     "Selected NFA ID:",
+//                     this._selectedNfaId
+//                 );
+
+//                 console.log(
+//                     "Ariba Workspace ID:",
+//                     this._aribaWorkspaceId
+//                 );
+
+//                 oDialog.close();
+
+//                 MessageToast.show(
+//                     "Workspace ID captured."
+//                 );
+//             }
+//         }),
+
+//         endButton: new Button({
+//             text: "Cancel",
+//             press: () => {
+//                 oDialog.close();
+//             }
+//         }),
+
+//         afterClose: () => {
+//             oDialog.destroy();
+//         }
+//     });
+
+//     oDialog.open();
+// },
+onImportDocument: function () {
+
+    // Make sure an NFA has been searched/selected
+    if (!this._selectedNfaId) {
+        MessageBox.error("Please search for an NFA first.");
+        return;
+    }
+
+    const oInput = new Input({
+        width: "100%",
+        placeholder: "Enter Ariba Workspace ID"
+    });
+
+    const oDialog = new Dialog({
+        title: "Import Document to Ariba",
+        contentWidth: "450px",
+
+        content: [
+            new Label({
+                text: "Ariba Workspace ID",
+                required: true
+            }),
+
+            oInput
+        ],
+
+        beginButton: new Button({
+            text: "Import",
+            type: "Emphasized",
+
+press: async () => {
+
+    const sWorkspaceId =
+        oInput.getValue().trim();
+
+    if (!sWorkspaceId) {
+        MessageBox.error(
+            "Please enter the Ariba Workspace ID."
+        );
+        return;
+    }
+
+    if (!this._selectedNfaId) {
+        MessageBox.error(
+            "No NFA is selected. Please search for an NFA first."
+        );
+        return;
+    }
+
+    try {
+
+        this._aribaWorkspaceId = sWorkspaceId;
+
+        console.log("================================");
+        console.log("CALLING CAP IMPORT DOCUMENT");
+        console.log("NFA ID:", this._selectedNfaId);
+        console.log(
+            "Workspace ID:",
+            this._aribaWorkspaceId
+        );
+        console.log("================================");
+
+        const oModel =
+            this.getView().getModel();
+
+        const oAction =
+            oModel.bindContext(
+                "/importDocument(...)"
+            );
+
+        oAction.setParameter(
+            "ID",
+            this._selectedNfaId
+        );
+
+        oAction.setParameter(
+            "workspaceId",
+            this._aribaWorkspaceId
+        );
+
+        oDialog.close();
+
+        MessageToast.show(
+            "Importing document to Ariba..."
+        );
+
+        const oResult =
+            await oAction.execute();
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "IMPORT DOCUMENT RESPONSE:",
+            oResult
+        );
+
+        console.log(
+            "================================"
+        );
+
+        MessageBox.success(
+            "Document imported successfully into Ariba."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Import Document Error:",
+            error
+        );
+
+        MessageBox.error(
+            error.message ||
+            "Failed to import document to Ariba."
+        );
+    }
+}
+}),
+
+        endButton: new Button({
+            text: "Cancel",
+
+            press: () => {
+                oDialog.close();
+            }
+        }),
+
+        afterClose: () => {
+            oDialog.destroy();
+        }
+    });
+
+    oDialog.open();
+},
 // onDownloadPDF
 onDownloadPDF: async function () {
-    debugger;
     try {
 
         if (!this._selectedNfaId) {

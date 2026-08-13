@@ -28,15 +28,194 @@ module.exports = cds.service.impl(async function () {
         attachments
     } = this.entities;
 
-    this.on("importDocument", async (req) => {
-        try {
-            return await importDocument(req.data);
-        } catch (error) {
-            console.error("Ariba DocumentImport failed:", error.message);
-            return req.reject(error.statusCode || 502, error.message);
-        }
-    });
+    // this.on("importDocument", async (req) => {
+    //     try {
+    //         return await importDocument(req.data);
+    //     } catch (error) {
+    //         console.error("Ariba DocumentImport failed:", error.message);
+    //         return req.reject(error.statusCode || 502, error.message);
+    //     }
+    // });
+this.on("importDocument", async (req) => {
 
+    try {
+
+        const { ID, workspaceId } = req.data;
+
+        console.log("================================");
+        console.log("IMPORT DOCUMENT TO ARIBA");
+        console.log("NFA ID:", ID);
+        console.log("Workspace ID:", workspaceId);
+        console.log("================================");
+
+        // 1. Validate NFA ID
+        if (!ID) {
+            return req.reject(
+                400,
+                "NFA ID is required"
+            );
+        }
+
+        // 2. Validate Workspace ID
+        if (!workspaceId) {
+            return req.reject(
+                400,
+                "Ariba Workspace ID is required"
+            );
+        }
+
+        // 3. Get NFA
+        const nfa =
+            await SELECT.one
+                .from(NFA)
+                .where({ ID });
+
+        if (!nfa) {
+            return req.reject(
+                404,
+                "NFA not found"
+            );
+        }
+
+        console.log(
+            "NFA found:",
+            nfa.nfaNumber
+        );
+
+        // 4. Get all NFA sections
+        const procurement =
+            await SELECT.one
+                .from(ProcurementOverview)
+                .where({ nfa_ID: ID });
+
+        const materialHistory =
+            await SELECT.one
+                .from(MaterialHistory)
+                .where({ nfa_ID: ID });
+
+        const sourcingVendorEvaluation =
+            await SELECT.one
+                .from(SourcingVendorEvaluation)
+                .where({ nfa_ID: ID });
+
+        const commercialSummary =
+            await SELECT.one
+                .from(CommercialSummary)
+                .where({ nfa_ID: ID });
+
+        const finalisedTermsConditions =
+            await SELECT.one
+                .from(FinalisedTermsConditions)
+                .where({ nfa_ID: ID });
+
+        const organisationOther =
+            await SELECT.one
+                .from(OrganisationOther)
+                .where({ nfa_ID: ID });
+
+        const purchaseOrderHeader =
+            await SELECT.one
+                .from(EKKO_PurchaseOrder_Header)
+                .where({ nfa_ID: ID });
+
+        const purchaseOrderItem =
+            await SELECT.one
+                .from(EKPO_PurchaseOrder_Item)
+                .where({ nfa_ID: ID });
+
+        // 5. Generate PDF
+        const pdf = await generatePDF({
+
+            procurement,
+
+            materialHistory,
+
+            sourcingVendorEvaluation,
+
+            commercialSummary,
+
+            finalisedTermsConditions,
+
+            organisationOther,
+
+            purchaseOrderHeader,
+
+            purchaseOrderItem
+
+        });
+
+        console.log(
+            "PDF generated successfully"
+        );
+
+        console.log(
+            "PDF size:",
+            pdf.length,
+            "bytes"
+        );
+
+        // 6. Send generated PDF to Ariba
+        const result = await importDocument({
+
+            action: "Create",
+
+            contents: pdf,
+
+            documentName:
+                `NFA Document/${nfa.nfaNumber}.pdf`,
+
+            documentId: "",
+
+            onBehalfUserId:
+                process.env.ARIBA_USER_DESIGNATION,
+
+            onBehalfUserPasswordAdapter:
+                process.env.ARIBA_PASSWORD_ADAPTER || "",
+
+            workspaceId:
+                workspaceId,
+
+            partition:
+                process.env.ARIBA_PARTITION || "",
+
+            variant:
+                process.env.ARIBA_VARIANT || ""
+
+        });
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "ARIBA DOCUMENT IMPORT RESULT"
+        );
+
+        console.log(result);
+
+        console.log(
+            "================================"
+        );
+
+        // 7. Return Ariba response to UI
+        return result;
+
+    } catch (error) {
+
+        console.error(
+            "Ariba DocumentImport failed:"
+        );
+
+        console.error(error);
+
+        return req.reject(
+            error.statusCode || 502,
+            error.message ||
+            "Failed to import document into Ariba"
+        );
+    }
+
+});
 this.on("getProcurementDetails", async (req) => {
     try {
         const { eventId } = req.data;

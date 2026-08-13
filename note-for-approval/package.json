@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test test/*.test.js",
-    "watch-nfa-fiori": "cds watch --open nfafiori/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-nfa-fiori": "cds watch --profile hybrid --open nfafiori/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,8 @@
     "@sap-cloud-sdk/connectivity": "^4.8.0",
     "@sap-cloud-sdk/http-client": "^4.8.0",
     "@sap-cloud-sdk/resilience": "^4.8.0",
+    "@sap/cds": "^10.0.3",
+    "@sap/xssec": "^4.15.0",
     "axios": "^1.18.1",
     "dotenv": "^17.4.2",
     "fast-xml-parser": "^5.5.9",

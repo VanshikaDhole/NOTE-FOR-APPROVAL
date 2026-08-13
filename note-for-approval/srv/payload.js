@@ -1,80 +1,80 @@
-async function buildCPIPayload({
-    nfa,
-    procurement,
-    pdfBuffer,
-    attachments
-}) {
+// async function buildCPIPayload({
+//     nfa,
+//     procurement,
+//     pdfBuffer,
+//     attachments
+// }) {
 
-    // Convert PDF to Base64
-    const pdfBase64 = pdfBuffer.toString("base64");
+//     // Convert PDF to Base64
+//     const pdfBase64 = pdfBuffer.toString("base64");
 
-    // Convert attachments to Base64
-    const attachmentList = [];
+//     // Convert attachments to Base64
+//     const attachmentList = [];
 
-    for (const file of attachments) {
+//     for (const file of attachments) {
 
-        attachmentList.push({
+//         attachmentList.push({
 
-            id: file.ID,
+//             id: file.ID,
 
-            fileName: file.filename,
+//             fileName: file.filename,
 
-            mimeType: file.mimeType,
+//             mimeType: file.mimeType,
 
-            content: file.content
-                ? file.content.toString("base64")
-                : ""
+//             content: file.content
+//                 ? file.content.toString("base64")
+//                 : ""
 
-        });
+//         });
 
-    }
+//     }
 
-    return {
+//     return {
 
-        nfa: {
+//         nfa: {
 
-            id: nfa.ID,
+//             id: nfa.ID,
 
-            nfaNumber: nfa.nfaNumber,
+//             nfaNumber: nfa.nfaNumber,
 
-            title: nfa.title,
+//             title: nfa.title,
 
-            status: nfa.status
+//             status: nfa.status
 
-        },
+//         },
 
-        procurement: {
+//         procurement: {
 
-            id: procurement.ID,
+//             id: procurement.ID,
 
-            procurementName: procurement.procurementName,
+//             procurementName: procurement.procurementName,
 
-            aribaSourcingEventRef: procurement.aribaSourcingEventRef,
+//             aribaSourcingEventRef: procurement.aribaSourcingEventRef,
 
-            procurementStrategy: procurement.procurementStrategy,
+//             procurementStrategy: procurement.procurementStrategy,
 
-            expenseCategory: procurement.expenseCategory
+//             expenseCategory: procurement.expenseCategory
 
-        },
+//         },
 
-        pdf: {
+//         pdf: {
 
-            fileName: `${nfa.nfaNumber}.pdf`,
+//             fileName: `${nfa.nfaNumber}.pdf`,
 
-            mimeType: "application/pdf",
+//             mimeType: "application/pdf",
 
-            content: pdfBase64
+//             content: pdfBase64
 
-        },
+//         },
 
-        attachments: attachmentList
+//         attachments: attachmentList
 
-    };
+//     };
 
-}
+// }
 
-module.exports = {
+// module.exports = {
 
-    buildCPIPayload
+//     buildCPIPayload
 
-};
+// };

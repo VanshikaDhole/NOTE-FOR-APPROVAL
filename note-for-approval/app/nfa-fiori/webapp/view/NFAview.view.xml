@@ -576,7 +576,14 @@
                                         text="Download PDF"
                                         icon="sap-icon://pdf-attachment"
                                         type="Accept"
-                                        press="onDownloadPDF"/>
+                                        press="onDownloadPDF"
+                                        class="sapUiTinyMarginEnd"/>
+
+                                    <Button
+                                        text="Import Document"
+                                        icon="sap-icon://upload-to-cloud"
+                                        type="Emphasized"
+                                        press="onImportDocument"/>
 
                                 </HBox>
                             </VBox>
