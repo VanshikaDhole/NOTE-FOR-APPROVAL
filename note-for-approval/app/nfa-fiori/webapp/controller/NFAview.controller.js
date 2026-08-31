@@ -1,13 +1,24 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/m/Dialog",
     "sap/m/Input",
     "sap/m/Label",
     "sap/m/Button"
-], (Controller, JSONModel, MessageToast, MessageBox, Dialog, Input, Label, Button) => {
+], (Controller,
+	JSONModel,
+	Filter,
+	FilterOperator,
+	MessageToast,
+	MessageBox,
+	Dialog,
+	Input,
+	Label,
+	Button) => {
     "use strict";
 
     return Controller.extend("nfafiori.controller.NFAview", {
@@ -557,6 +568,402 @@ if (oAttachmentsModel) {
                 MessageBox.error("Submit Failed");
             }
     },
+// Search/filter NFA list
+onSearchNFAList(oEvent) {
+
+    const sValue =
+        oEvent.getParameter("newValue")?.trim() || "";
+
+    const oTable =
+        this.byId("nfaListTable");
+
+    const oBinding =
+        oTable.getBinding("items");
+
+    if (!oBinding) {
+        return;
+    }
+
+    if (!sValue) {
+
+        oBinding.filter([]);
+
+        return;
+    }
+
+    const oFilter =
+        new Filter(
+            "nfaNumber",
+            FilterOperator.Contains,
+            sValue
+        );
+
+    oBinding.filter([
+        oFilter
+    ]);
+},
+// Select NFA from List of NFA
+async onNFAListSelect(oEvent) {
+
+    let pdfWindow = null;
+
+    try {
+
+        // Get selected row
+        const oItem =
+            oEvent.getParameter("listItem");
+
+        if (!oItem) {
+            MessageBox.error(
+                "Unable to identify the selected NFA row."
+            );
+            return;
+        }
+
+        // List of NFA table uses the default OData model
+        const oContext =
+            oItem.getBindingContext();
+
+        if (!oContext) {
+            MessageBox.error(
+                "Unable to identify the selected NFA."
+            );
+            return;
+        }
+
+        // Get selected NFA
+        const oNFA =
+            oContext.getObject();
+
+        console.log(
+            "Selected NFA:",
+            oNFA
+        );
+
+        if (!oNFA || !oNFA.ID) {
+
+            MessageBox.error(
+                "NFA ID not found."
+            );
+
+            return;
+        }
+
+        console.log(
+            "Generating PDF for:",
+            oNFA.nfaNumber
+        );
+
+        /*
+         * Open a blank browser tab BEFORE
+         * the asynchronous request.
+         *
+         * This avoids popup blocker issues.
+         */
+        pdfWindow =
+            window.open("", "_blank");
+
+        if (!pdfWindow) {
+
+            MessageBox.error(
+                "Please allow pop-ups for this application."
+            );
+
+            return;
+        }
+
+        pdfWindow.document.write(`
+            <html>
+                <head>
+                    <title>Generating NFA PDF...</title>
+                </head>
+
+                <body style="font-family: Arial; padding: 40px;">
+                    <h2>Generating NFA PDF...</h2>
+                    <p>Please wait...</p>
+                </body>
+            </html>
+        `);
+
+        // Call CAP generatePDF action
+        const response =
+            await fetch(
+                "/odata/v4/nfa/generatePDF",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        ID: oNFA.ID
+                    })
+                }
+            );
+
+        console.log(
+            "generatePDF HTTP status:",
+            response.status
+        );
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            console.error(
+                "generatePDF error response:",
+                errorText
+            );
+
+            throw new Error(
+                `Failed to generate PDF. HTTP ${response.status}`
+            );
+        }
+
+        /*
+         * CAP OData action returning LargeBinary
+         * is received as JSON.
+         */
+        const result =
+            await response.json();
+
+        console.log(
+            "RAW generatePDF response:",
+            result
+        );
+
+        console.log(
+            "generatePDF response JSON:",
+            JSON.stringify(
+                result,
+                null,
+                2
+            )
+        );
+
+        /*
+         * Extract PDF data.
+         */
+        let base64Data = null;
+
+        // Case 1:
+        // {
+        //     "value": "JVBERi0x..."
+        // }
+        if (
+            typeof result.value === "string"
+        ) {
+
+            base64Data =
+                result.value;
+        }
+
+        /*
+         * Case 2:
+         *
+         * {
+         *     "value": {
+         *         "data": [...]
+         *     }
+         * }
+         */
+        else if (
+            result.value &&
+            Array.isArray(
+                result.value.data
+            )
+        ) {
+
+            const bytes =
+                new Uint8Array(
+                    result.value.data
+                );
+
+            const pdfBlob =
+                new Blob(
+                    [bytes],
+                    {
+                        type:
+                            "application/pdf"
+                    }
+                );
+
+            console.log(
+                "Final PDF Blob:",
+                pdfBlob
+            );
+
+            console.log(
+                "Final PDF Size:",
+                pdfBlob.size
+            );
+
+            if (pdfBlob.size === 0) {
+
+                throw new Error(
+                    "Generated PDF is empty."
+                );
+            }
+
+            const pdfUrl =
+                window.URL.createObjectURL(
+                    pdfBlob
+                );
+
+            pdfWindow.location.href =
+                pdfUrl;
+
+            MessageToast.show(
+                `Opening PDF for ${oNFA.nfaNumber}`
+            );
+
+            return;
+        }
+
+        /*
+         * If we don't find PDF data,
+         * stop and show the actual response
+         * in the console.
+         */
+        if (!base64Data) {
+
+            console.error(
+                "Unexpected generatePDF response:",
+                result
+            );
+
+            throw new Error(
+                "PDF data was not returned by the backend."
+            );
+        }
+
+        /*
+         * Remove data URL prefix if present.
+         *
+         * Correct regex:
+         * data:application/pdf;base64,
+         */
+        base64Data =
+            base64Data.replace(
+                /^data:application\/pdf;base64,/,
+                ""
+            );
+
+        /*
+         * Decode Base64
+         */
+        let binaryString;
+
+        try {
+
+            binaryString =
+                window.atob(
+                    base64Data
+                );
+
+        } catch (decodeError) {
+
+            console.error(
+                "Base64 decoding failed:",
+                decodeError
+            );
+
+            console.error(
+                "Received PDF data:",
+                base64Data.substring(
+                    0,
+                    100
+                )
+            );
+
+            throw new Error(
+                "The backend did not return valid Base64 PDF data."
+            );
+        }
+
+        const len =
+            binaryString.length;
+
+        const bytes =
+            new Uint8Array(len);
+
+        for (
+            let i = 0;
+            i < len;
+            i++
+        ) {
+
+            bytes[i] =
+                binaryString.charCodeAt(i);
+        }
+
+        /*
+         * Create actual PDF Blob
+         */
+        const pdfBlob =
+            new Blob(
+                [bytes],
+                {
+                    type:
+                        "application/pdf"
+                }
+            );
+
+        console.log(
+            "Final PDF Blob:",
+            pdfBlob
+        );
+
+        console.log(
+            "Final PDF Size:",
+            pdfBlob.size
+        );
+
+        if (pdfBlob.size === 0) {
+
+            throw new Error(
+                "Generated PDF is empty."
+            );
+        }
+
+        /*
+         * Create browser PDF URL
+         */
+        const pdfUrl =
+            window.URL.createObjectURL(
+                pdfBlob
+            );
+
+        /*
+         * Open PDF in the new tab
+         */
+        pdfWindow.location.href =
+            pdfUrl;
+
+        MessageToast.show(
+            `Opening PDF for ${oNFA.nfaNumber}`
+        );
+
+    } catch (oError) {
+
+        console.error(
+            "Failed to open NFA PDF:",
+            oError
+        );
+
+        if (pdfWindow) {
+            pdfWindow.close();
+        }
+
+        MessageBox.error(
+            oError.message ||
+            "Unable to generate NFA PDF."
+        );
+    }
+},
 
 // onSearchExistingNFA
     async onSearchExistingNFA() {
@@ -647,83 +1054,6 @@ onOpenAttachment: function (oEvent) {
     }
 },
 
-//  Workspace ID popup
-// onImportDocument: function () {
-
-//     // Make sure an NFA has been searched
-//     if (!this._selectedNfaId) {
-//         MessageBox.error("Please search for an NFA first.");
-//         return;
-//     }
-
-//     const oInput = new Input({
-//         width: "100%",
-//         placeholder: "Enter Ariba Workspace ID"
-//     });
-
-//     const oDialog = new Dialog({
-//         title: "Import Document to Ariba",
-//         contentWidth: "450px",
-//         content: [
-//             new Label({
-//                 text: "Ariba Workspace ID",
-//                 required: true
-//             }),
-//             oInput
-//         ],
-
-//         beginButton: new Button({
-//             text: "Import",
-//             type: "Emphasized",
-
-//             press: () => {
-
-//                 const sWorkspaceId =
-//                     oInput.getValue().trim();
-
-//                 if (!sWorkspaceId) {
-//                     MessageBox.error(
-//                         "Please enter the Ariba Workspace ID."
-//                     );
-//                     return;
-//                 }
-
-//                 // Store it temporarily.
-//                 // We will use this in the next steps.
-//                 this._aribaWorkspaceId = sWorkspaceId;
-
-//                 console.log(
-//                     "Selected NFA ID:",
-//                     this._selectedNfaId
-//                 );
-
-//                 console.log(
-//                     "Ariba Workspace ID:",
-//                     this._aribaWorkspaceId
-//                 );
-
-//                 oDialog.close();
-
-//                 MessageToast.show(
-//                     "Workspace ID captured."
-//                 );
-//             }
-//         }),
-
-//         endButton: new Button({
-//             text: "Cancel",
-//             press: () => {
-//                 oDialog.close();
-//             }
-//         }),
-
-//         afterClose: () => {
-//             oDialog.destroy();
-//         }
-//     });
-
-//     oDialog.open();
-// },
 onImportDocument: function () {
 
     // Make sure an NFA has been searched/selected

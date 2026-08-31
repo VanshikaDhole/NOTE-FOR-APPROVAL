@@ -7,7 +7,82 @@
         <content>
             <IconTabBar class="nfaPageContent" expandable="false">
                 <items>
-                    <IconTabFilter text="Create NFA">
+                    <IconTabFilter
+                        key="listNFA"
+                        text="List of NFA">
+
+                        <VBox class="sapUiSmallMargin">
+
+                            <Title
+                                text="List of NFA"
+                                level="H2"
+                                class="sapUiSmallMarginBottom" />
+
+                            <SearchField
+                                id="nfaListSearch"
+                                width="350px"
+                                placeholder="Search NFA Number..."
+                                liveChange=".onSearchNFAList"
+                                class="sapUiSmallMarginBottom" />
+
+                            <Table
+                                id="nfaListTable"
+                                items="{/NFA}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onNFAListSelect"
+                                growing="true"
+                                growingThreshold="20"
+                                width="100%">
+
+                                <columns>
+
+                                    <Column>
+                                        <Text text="NFA Number" />
+                                    </Column>
+
+                                    <Column>
+                                        <Text text="Title" />
+                                    </Column>
+
+                                    <Column>
+                                        <Text text="Status" />
+                                    </Column>
+
+                                    <Column>
+                                        <Text text="Created By" />
+                                    </Column>
+
+                                    <Column>
+                                        <Text text="Created On" />
+                                    </Column>
+
+                                </columns>
+
+                                <items>
+
+                                    <ColumnListItem
+                                        type="Active">
+
+                                        <cells>
+
+                                            <Text text="{nfaNumber}"/>
+                                            <Text text="{title}" />
+
+                                            <Text text="{status}" />
+                                            <Text text="{createdBy}"/>
+                                            <Text text="{createdAt}"/>
+                                        </cells>
+
+                                    </ColumnListItem>
+
+                                </items>
+
+                            </Table>
+
+                        </VBox>
+
+                    </IconTabFilter>
+                                        <IconTabFilter text="Create NFA">
                         <content>
                             <VBox class="nfaPageContent" width="100%">
                                 <Title text="Note for Approval" level="H2" class="nfaPageTitle" />
@@ -218,27 +293,7 @@
                                         </HBox>
                                     </VBox>
                                 </Panel>
-                                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
-                                    <VBox class="nfaSectionBody">
-                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                                            <VBox class="nfaFieldGroup nfaFieldWidth100">
-                                                <Label text="Upload Attachment" class="nfaFieldLabel" />
-                                                <u:FileUploader
-                                                    id="fileUploader"
-                                                    name="myFileUpload"
-                                                    width="100%"
-                                                    placeholder="Choose a file"
-                                                    uploadUrl="/upload"
-                                                    uploadComplete=".handleUploadComplete" />
-                                                <Button
-                                                    text="Upload Attachment"
-                                                    type="Emphasized"
-                                                    press=".handleUploadPress"
-                                                    class="sapUiSmallMarginTop" />
-                                            </VBox>
-                                        </HBox>
-                                    </VBox>
-                                </Panel> -->
+                               
                                 <Panel headerText="Attachments" class="nfaSection">
                                     <content>
                                         <VBox class="sapUiSmallMargin">
@@ -512,26 +567,6 @@
                                         </HBox>
                                     </VBox>
                                 </Panel>
-                                <!-- <Panel headerText="Attachments" class="nfaSection" expandable="false">
-                                    <VBox class="nfaSectionBody">
-                                        <HBox wrap="Wrap" width="100%" class="nfaFieldRow">
-                                            <VBox class="nfaFieldGroup nfaFieldWidth100">
-                                                <Label text="Upload Attachment" class="nfaFieldLabel" />
-                                                <u:FileUploader
-                                                    name="myFileUpload"
-                                                    width="100%"
-                                                    placeholder="Choose a file"
-                                                    uploadUrl="/upload"
-                                                    uploadComplete=".handleUploadComplete" />
-                                                <Button
-                                                    text="Upload Attachment"
-                                                    type="Emphasized"
-                                                    press=".handleUploadPress"
-                                                    class="sapUiSmallMarginTop" />
-                                            </VBox>
-                                        </HBox>
-                                    </VBox>
-                                </Panel> -->
                                 <Panel headerText="Attachments" class="nfaSection">
                                     <content>
                                         <VBox class="sapUiSmallMargin">

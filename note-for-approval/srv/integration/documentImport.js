@@ -116,6 +116,11 @@ function parseResponse(xml) {
 }
 
 async function importDocument(input, execute = executeHttpRequest) {
+        console.log("[NFA][DocumentImport] Request", { //check
+        action: input.action,
+        documentName: input.documentName,
+        workspaceId: input.workspaceId
+    });
     const response = await execute(
         { destinationName: DESTINATION_NAME },
         {
@@ -129,6 +134,7 @@ async function importDocument(input, execute = executeHttpRequest) {
             responseType: "text"
         }
     );
+    console.log("[NFA][DocumentImport] Raw response:", response.data); //check 
     return parseResponse(response.data);
 }
 

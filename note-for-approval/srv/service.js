@@ -1,8 +1,8 @@
 
 const cds = require("@sap/cds");
 const { generatePDF } = require("./pdfService");
-const { sendTestMail } = require("./emailService");
 const { importDocument } = require("./integration/documentImport");
+const { buildDocumentName } = require("./integration/documentPath");
 
 //console.log(ariba_doc);
 
@@ -161,8 +161,7 @@ this.on("importDocument", async (req) => {
 
             contents: pdf,
 
-            documentName:
-                `NFA Document/${nfa.nfaNumber}.pdf`,
+            documentName: buildDocumentName(process.env.ARIBA_NFA_FOLDER_NAME || "NFA Document", `${nfa.nfaNumber}.pdf`), //CHECK
 
             documentId: "",
 
