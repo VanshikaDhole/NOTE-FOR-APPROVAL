@@ -24,6 +24,19 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "NFA_SEMANTIC-Display": {
+          "semanticObject": "NFA_SEMANTIC",
+          "action": "Display",
+          "title": "{{NFA_SEMANTIC-Display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {

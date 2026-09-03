@@ -4,8 +4,12 @@
   "description": "Welcome to your new CAP project.",
   "main": "index.js",
   "scripts": {
+    "start": "cds-serve",
     "test": "node --test test/*.test.js",
-    "watch-nfa-fiori": "cds watch --profile hybrid --open nfafiori/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-nfa-fiori": "cds watch --profile hybrid --open nfafiori/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy note-for-approval --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
   "keywords": [],
   "author": "",
@@ -13,16 +17,27 @@
   "type": "commonjs",
   "cds": {
     "requires": {
-      "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "url": "db.sqlite"
+      "[development]": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        }
+      },
+      "[production]": {
+        "db": {
+          "kind": "hana"
+        },
+        "auth": {
+          "kind": "dummy"
         }
       }
     }
   },
   "dependencies": {
     "@cap-js/attachments": "^3.13.2",
+    "@cap-js/hana": "^3",
     "@cap-js/sqlite": "^3.0.2",
     "@sap-cloud-sdk/connectivity": "^4.8.0",
     "@sap-cloud-sdk/http-client": "^4.8.0",
@@ -38,7 +53,9 @@
   },
   "devDependencies": {
     "@sap/cds-dk": "^10.0.5",
-    "cds-plugin-ui5": "^0.17.0"
+    "cds-plugin-ui5": "^0.17.0",
+    "mbt": "^1.2.49",
+    "rimraf": "^5.0.5"
   },
   "workspaces": [
     "app/*"
