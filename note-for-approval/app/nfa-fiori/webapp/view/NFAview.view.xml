@@ -18,12 +18,103 @@
                                 level="H2"
                                 class="sapUiSmallMarginBottom" />
 
-                            <SearchField
-                                id="nfaListSearch"
-                                width="350px"
-                                placeholder="Search NFA Number..."
-                                liveChange=".onSearchNFAList"
-                                class="sapUiSmallMarginBottom" />
+                            <VBox width="100%" class="sapUiSmallMarginBottom">
+
+    <!-- First Row of Filters -->
+    <HBox
+        wrap="Wrap"
+        width="100%"
+        class="sapUiSmallMarginBottom">
+
+        <!-- NFA Number -->
+        <VBox width="220px" class="sapUiSmallMarginEnd">
+            <Label text="NFA Number" />
+            <Input
+                id="nfaNumberFilter"
+                placeholder="Enter NFA Number..." />
+        </VBox>
+
+        <!-- Title -->
+        <VBox width="300px" class="sapUiSmallMarginEnd">
+            <Label text="Title" />
+            <Input
+                id="nfaTitleFilter"
+                placeholder="Enter Title..." />
+        </VBox>
+
+        <!-- Status -->
+        <VBox width="220px" class="sapUiSmallMarginEnd">
+            <Label text="Status" />
+            <Select id="nfaStatusFilter" width="100%">
+                <items>
+                    <core:Item key="" text="All" />
+                    <core:Item key="Submitted" text="Submitted" />
+                    <core:Item key="Draft" text="Draft" />
+                    <core:Item key="In Review" text="In Review" />
+                    <core:Item key="Approved" text="Approved" />
+                    <core:Item key="Rejected" text="Rejected" />
+                </items>
+            </Select>
+        </VBox>
+
+        <!-- Created By -->
+        <VBox width="220px" class="sapUiSmallMarginEnd">
+            <Label text="Created By" />
+            <Input
+                id="nfaCreatedByFilter"
+                placeholder="Enter Created By..." />
+        </VBox>
+
+    </HBox>
+
+    <!-- Second Row of Filters -->
+    <HBox
+        wrap="Wrap"
+        width="100%"
+        class="sapUiSmallMarginBottom">
+
+        <!-- Created On From -->
+        <VBox width="220px" class="sapUiSmallMarginEnd">
+            <Label text="Created On (From)" />
+            <DatePicker
+                id="nfaCreatedFromFilter"
+                placeholder="Select date"
+                valueFormat="yyyy-MM-dd"
+                displayFormat="MMM dd, yyyy" />
+        </VBox>
+
+        <!-- Created On To -->
+        <VBox width="220px" class="sapUiSmallMarginEnd">
+            <Label text="Created On (To)" />
+            <DatePicker
+                id="nfaCreatedToFilter"
+                placeholder="Select date"
+                valueFormat="yyyy-MM-dd"
+                displayFormat="MMM dd, yyyy" />
+        </VBox>
+
+        <!-- Buttons -->
+        <VBox
+            class="sapUiSmallMarginEnd"
+            justifyContent="End">
+
+            <HBox>
+                <Button
+                    text="Search"
+                    type="Emphasized"
+                    press=".onSearchNFAList"
+                    class="sapUiSmallMarginEnd" />
+
+                <Button
+                    text="Reset"
+                    press=".onResetNFAFilters" />
+            </HBox>
+
+        </VBox>
+
+    </HBox>
+
+</VBox>
 
                             <Table
                                 id="nfaListTable"

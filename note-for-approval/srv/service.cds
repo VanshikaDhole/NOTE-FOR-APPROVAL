@@ -37,6 +37,7 @@ service NFAService
 type ProcurementResponse {
     procurementName : String;
     aribaSourcingEventRef : String;
+    workspaceId : String;
     procurementRoute : String;
     procurementStrategy : String;
     expenseCategory : String;

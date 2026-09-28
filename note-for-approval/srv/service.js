@@ -245,6 +245,7 @@ try {
         return {
             procurementName: procurementDetails.procurementName,
             aribaSourcingEventRef: procurementDetails.aribaSourcingEventRef,
+            workspaceId: procurementDetails.workspaceId,
             procurementRoute: procurementDetails.procurementRoute,
             procurementStrategy: procurementDetails.procurementStrategy,
             expenseCategory: procurementDetails.expenseCategory,
@@ -271,6 +272,15 @@ this.on("submitNFA", async (req) => {
     try {
 
         const data = JSON.parse(req.data.data);
+        //
+        const workspaceId = data.procurement?.workspaceId;
+
+        if (!workspaceId) {
+            return req.error(
+                400,
+                "Ariba Workspace ID could not be determined from the sourcing event."
+            );
+        }
         // Generate NFA Number
         const nfaNumber = `NFA-${Date.now()}`;
         // Create NFA
@@ -279,7 +289,7 @@ this.on("submitNFA", async (req) => {
         await tx.run(
             INSERT.into(NFA).entries({
                 ID: nfaID,
-                nfaNumber: `NFA-${Date.now()}`,
+                nfaNumber: nfaNumber,
                 title: data.procurement.procurementName,
                 status: "Submitted"
             })
@@ -350,6 +360,56 @@ this.on("submitNFA", async (req) => {
             })
         );
         await tx.commit();
+        // Generate PDF for the newly submitted NFA
+const pdf = await generatePDF({
+    procurement: data.procurement,
+    materialHistory: data.materialHistory,
+    sourcingVendorEvaluation: data.sourcingVendorEvaluation,
+    commercialSummary: data.commercialSummary,
+    finalisedTermsConditions: data.finalisedTermsConditions,
+    organisationOther: data.organisationOther,
+    purchaseOrderHeader: data.purchaseOrderHeader,
+    purchaseOrderItem: data.purchaseOrderItem
+});
+
+console.log("PDF generated successfully");
+console.log("PDF size:", pdf.length, "bytes");
+
+// Send generated PDF to Ariba
+const result = await importDocument({
+
+    action: "Create",
+
+    contents: pdf,
+
+    documentName: buildDocumentName(
+        process.env.ARIBA_NFA_FOLDER_NAME || "NFA Document",
+        `${nfaNumber}.pdf`
+    ),
+
+    documentId: "",
+
+    onBehalfUserId:
+        process.env.ARIBA_USER_DESIGNATION,
+
+    onBehalfUserPasswordAdapter:
+        process.env.ARIBA_PASSWORD_ADAPTER || "",
+
+    workspaceId: workspaceId,
+
+    partition:
+        process.env.ARIBA_PARTITION || "",
+
+    variant:
+        process.env.ARIBA_VARIANT || ""
+});
+
+console.log("================================");
+console.log("ARIBA DOCUMENT IMPORT RESULT");
+console.log(result);
+console.log("================================");
+
+
         // Send Test Email
         //await sendTestMail();
             const response = {

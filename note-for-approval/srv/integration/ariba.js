@@ -122,6 +122,7 @@ console.log("Calling URL:", url);
         return {
             procurementName: event.title,
             aribaSourcingEventRef: event.internalId,
+            workspaceId: event.parentProjectId || "",
             procurementRoute: "",
             procurementStrategy: event.eventTypeName,
             expenseCategory: event.commodities?.[0]?.name || "",

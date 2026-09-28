@@ -29,6 +29,7 @@ entity ProcurementOverview : cuid, managed {
     nfa                         : Association to NFA;
     procurementName             : String(255);
     aribaSourcingEventRef       : String(100);
+    workspaceId                 : String(100);
     procurementObjectives       : LargeString;
     procurementBackground       : LargeString;
     procurementRoute            : String(40);
