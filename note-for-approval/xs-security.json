@@ -1,6 +1,6 @@
 {
   "description": "Security profile of called application",
-  "tenant":"dedicated",
+  "tenant-mode":"dedicated",
   "scopes": [],
   "attributes": [],
   "role-templates": [],

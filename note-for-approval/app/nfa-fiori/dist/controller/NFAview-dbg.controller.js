@@ -29,6 +29,7 @@ sap.ui.define([
                 procurement: {
                     procurementName: "",
                     aribaSourcingEventRef: "",
+                    workspaceId: "",
                     procurementRoute: "",
                     procurementStrategy: "",
                     expenseCategory: "",
@@ -460,6 +461,7 @@ if (oAttachmentsModel) {
                 oViewModel.setProperty("/procurement/procurementName", oData.procurementName);
                 oViewModel.setProperty("/procurement/procurementRoute", oData.procurementRoute);
                 oViewModel.setProperty("/procurement/aribaSourcingEventRef", oData.aribaSourcingEventRef);
+                oViewModel.setProperty("/procurement/workspaceId", oData.workspaceId);
                 oViewModel.setProperty("/procurement/procurementStrategy", oData.procurementStrategy);
                 oViewModel.setProperty("/procurement/expenseCategory", oData.expenseCategory);
                 oViewModel.setProperty("/procurement/procurementObjectives", oData.procurementObjectives);
@@ -512,6 +514,11 @@ if (oAttachmentsModel) {
                 oViewModel.getProperty("/purchaseOrderItem")
 
         };
+        console.log("================================");
+console.log("SUBMIT NFA PAYLOAD");
+console.log(payload);
+console.log("Workspace ID:", payload.procurement?.workspaceId);
+console.log("================================");
 
         const oModel = this.getView().getModel();
         const oAction =
@@ -569,39 +576,130 @@ if (oAttachmentsModel) {
             }
     },
 // Search/filter NFA list
-onSearchNFAList(oEvent) {
+onSearchNFAList() {
 
-    const sValue =
-        oEvent.getParameter("newValue")?.trim() || "";
-
-    const oTable =
-        this.byId("nfaListTable");
-
-    const oBinding =
-        oTable.getBinding("items");
+    const oTable = this.byId("nfaListTable");
+    const oBinding = oTable.getBinding("items");
 
     if (!oBinding) {
         return;
     }
 
-    if (!sValue) {
+    const sNfaNumber =
+        this.byId("nfaNumberFilter")
+            .getValue()
+            .trim();
 
-        oBinding.filter([]);
+    const sTitle =
+        this.byId("nfaTitleFilter")
+            .getValue()
+            .trim();
 
-        return;
+    const sStatus =
+        this.byId("nfaStatusFilter")
+            .getSelectedKey();
+
+    const sCreatedBy =
+        this.byId("nfaCreatedByFilter")
+            .getValue()
+            .trim();
+
+    const sCreatedFrom =
+        this.byId("nfaCreatedFromFilter")
+            .getValue();
+
+    const sCreatedTo =
+        this.byId("nfaCreatedToFilter")
+            .getValue();
+
+    const aFilters = [];
+
+    // NFA Number
+    if (sNfaNumber) {
+        aFilters.push(
+            new Filter(
+                "nfaNumber",
+                FilterOperator.Contains,
+                sNfaNumber
+            )
+        );
     }
 
-    const oFilter =
-        new Filter(
-            "nfaNumber",
-            FilterOperator.Contains,
-            sValue
+    // Title
+    if (sTitle) {
+        aFilters.push(
+            new Filter(
+                "title",
+                FilterOperator.Contains,
+                sTitle
+            )
         );
+    }
 
-    oBinding.filter([
-        oFilter
-    ]);
+    // Status
+    if (sStatus) {
+        aFilters.push(
+            new Filter(
+                "status",
+                FilterOperator.EQ,
+                sStatus
+            )
+        );
+    }
+
+    // Created By
+    if (sCreatedBy) {
+        aFilters.push(
+            new Filter(
+                "createdBy",
+                FilterOperator.Contains,
+                sCreatedBy
+            )
+        );
+    }
+
+    // Created From
+    if (sCreatedFrom) {
+        aFilters.push(
+            new Filter(
+                "createdAt",
+                FilterOperator.GE,
+                `${sCreatedFrom}T00:00:00`
+            )
+        );
+    }
+
+    // Created To
+    if (sCreatedTo) {
+        aFilters.push(
+            new Filter(
+                "createdAt",
+                FilterOperator.LE,
+                `${sCreatedTo}T23:59:59`
+            )
+        );
+    }
+
+    oBinding.filter(aFilters);
 },
+
+onResetNFAFilters() {
+
+    this.byId("nfaNumberFilter").setValue("");
+    this.byId("nfaTitleFilter").setValue("");
+    this.byId("nfaStatusFilter").setSelectedKey("");
+    this.byId("nfaCreatedByFilter").setValue("");
+    this.byId("nfaCreatedFromFilter").setValue(null);
+    this.byId("nfaCreatedToFilter").setValue(null);
+
+    const oTable = this.byId("nfaListTable");
+    const oBinding = oTable.getBinding("items");
+
+    if (oBinding) {
+        oBinding.filter([]);
+    }
+},
+
 // Select NFA from List of NFA
 async onNFAListSelect(oEvent) {
 

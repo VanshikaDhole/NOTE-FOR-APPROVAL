@@ -8,6 +8,8 @@ modules:
     path: gen/srv
     requires:
       - name: note-for-approval-db
+      - name: note-for-approval-auth
+      - name: note-for-approval-destination-service
     provides:
       - name: srv-api
         properties:
@@ -66,12 +68,23 @@ modules:
           url: ~{srv-url}
           forwardAuthToken: true
       - name: note-for-approval-html5-runtime
+      - name: note-for-approval-auth
+      - name: note-for-approval-destination-service
     provides:
       - name: app-api
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
 resources:
+  - name: note-for-approval-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: note-for-approval-${org}-${space}
+        tenant-mode: dedicated
   - name: note-for-approval-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
@@ -96,6 +109,10 @@ resources:
                 ProxyType: Internet
                 Type: HTTP
                 URL: https://ui5.sap.com
+              - Authentication: OAuth2UserTokenExchange
+                Name: srv-api
+                TokenServiceInstanceName: note-for-approval-auth
+                TokenServiceKeyName: note-for-approval-key
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
