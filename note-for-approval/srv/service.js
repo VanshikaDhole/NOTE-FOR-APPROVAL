@@ -14,6 +14,33 @@ const {
     getItems
 } = require("./integration/ariba");
 
+const NUMERIC_TYPES = new Set([
+    "cds.Integer", "cds.Int16", "cds.Int32", "cds.Int64",
+    "cds.Decimal", "cds.Double"
+]);
+const DATE_TYPES = new Set([
+    "cds.Date", "cds.DateTime", "cds.Time", "cds.Timestamp"
+]);
+
+// HANA rejects '' in number/date columns. This converts blank values to null
+// and removes thousand separators such as "1,250.50".
+function sanitize(entity, data = {}) {
+    const out = { ...data };
+    for (const [key, el] of Object.entries(entity.elements)) {
+        if (!(key in out) || typeof out[key] !== "string") continue;
+
+        const val = out[key].trim();
+
+        if (NUMERIC_TYPES.has(el.type)) {
+            const cleaned = val.replace(/,/g, "");
+            out[key] = cleaned === "" || isNaN(Number(cleaned)) ? null : cleaned;
+        } else if (DATE_TYPES.has(el.type)) {
+            out[key] = val === "" ? null : val;
+        }
+    }
+    return out;
+}
+
 module.exports = cds.service.impl(async function () {
     const {
         NFA,
@@ -300,130 +327,226 @@ this.on("submitNFA", async (req) => {
 
         console.log("Saved NFA:", savedNFA);
 
-        // Procurement Overview
+        // // Procurement Overview
+        // const procurementID = cds.utils.uuid();
+        // await tx.run(
+        //     INSERT.into(ProcurementOverview).entries({
+        //         ID: procurementID,
+        //         nfa_ID: nfaID,
+        //         ...data.procurement
+        //     })
+        // );
+        // // Material History
+        // await tx.run(
+        //     INSERT.into(MaterialHistory).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.materialHistory
+        //     })
+        // );
+        // // Vendor Evaluation
+        // await tx.run(
+        //     INSERT.into(SourcingVendorEvaluation).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.sourcingVendorEvaluation
+        //     })
+        // );
+        // // Commercial Summary
+        // await tx.run(
+        //     INSERT.into(CommercialSummary).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.commercialSummary
+        //     })
+        // );
+
+        // // Finalised Terms
+        // await tx.run(
+        //     INSERT.into(FinalisedTermsConditions).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.finalisedTermsConditions
+        //     })
+        // );
+        // // Organisation
+        // await tx.run(
+        //     INSERT.into(OrganisationOther).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.organisationOther
+        //     })
+        // );
+        // // PO Header
+        // await tx.run(
+        //     INSERT.into(EKKO_PurchaseOrder_Header).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.purchaseOrderHeader
+        //     })
+        // );
+        // // PO Item
+        // await tx.run(
+        //     INSERT.into(EKPO_PurchaseOrder_Item).entries({
+        //         nfa_ID: nfaID,
+        //         ...data.purchaseOrderItem
+        //     })
+        // );
+
+                // Procurement Overview
         const procurementID = cds.utils.uuid();
         await tx.run(
             INSERT.into(ProcurementOverview).entries({
                 ID: procurementID,
                 nfa_ID: nfaID,
-                ...data.procurement
+                ...sanitize(ProcurementOverview, data.procurement)
             })
         );
-        // Material History
         await tx.run(
             INSERT.into(MaterialHistory).entries({
                 nfa_ID: nfaID,
-                ...data.materialHistory
+                ...sanitize(MaterialHistory, data.materialHistory)
             })
         );
-        // Vendor Evaluation
         await tx.run(
             INSERT.into(SourcingVendorEvaluation).entries({
                 nfa_ID: nfaID,
-                ...data.sourcingVendorEvaluation
+                ...sanitize(SourcingVendorEvaluation, data.sourcingVendorEvaluation)
             })
         );
-        // Commercial Summary
         await tx.run(
             INSERT.into(CommercialSummary).entries({
                 nfa_ID: nfaID,
-                ...data.commercialSummary
+                ...sanitize(CommercialSummary, data.commercialSummary)
             })
         );
-
-        // Finalised Terms
         await tx.run(
             INSERT.into(FinalisedTermsConditions).entries({
                 nfa_ID: nfaID,
-                ...data.finalisedTermsConditions
+                ...sanitize(FinalisedTermsConditions, data.finalisedTermsConditions)
             })
         );
-        // Organisation
         await tx.run(
             INSERT.into(OrganisationOther).entries({
                 nfa_ID: nfaID,
-                ...data.organisationOther
+                ...sanitize(OrganisationOther, data.organisationOther)
             })
         );
-        // PO Header
         await tx.run(
             INSERT.into(EKKO_PurchaseOrder_Header).entries({
                 nfa_ID: nfaID,
-                ...data.purchaseOrderHeader
+                ...sanitize(EKKO_PurchaseOrder_Header, data.purchaseOrderHeader)
             })
         );
-        // PO Item
         await tx.run(
             INSERT.into(EKPO_PurchaseOrder_Item).entries({
                 nfa_ID: nfaID,
-                ...data.purchaseOrderItem
+                ...sanitize(EKPO_PurchaseOrder_Item, data.purchaseOrderItem)
             })
         );
+//         await tx.commit();
+//         // Generate PDF for the newly submitted NFA
+// const pdf = await generatePDF({
+//     procurement: data.procurement,
+//     materialHistory: data.materialHistory,
+//     sourcingVendorEvaluation: data.sourcingVendorEvaluation,
+//     commercialSummary: data.commercialSummary,
+//     finalisedTermsConditions: data.finalisedTermsConditions,
+//     organisationOther: data.organisationOther,
+//     purchaseOrderHeader: data.purchaseOrderHeader,
+//     purchaseOrderItem: data.purchaseOrderItem
+// });
+
+// console.log("PDF generated successfully");
+// console.log("PDF size:", pdf.length, "bytes");
+
+// // Send generated PDF to Ariba
+// const result = await importDocument({
+
+//     action: "Create",
+
+//     contents: pdf,
+
+//     documentName: buildDocumentName(
+//         process.env.ARIBA_NFA_FOLDER_NAME || "NFA Document",
+//         `${nfaNumber}.pdf`
+//     ),
+
+//     documentId: "",
+
+//     onBehalfUserId:
+//         process.env.ARIBA_USER_DESIGNATION,
+
+//     onBehalfUserPasswordAdapter:
+//         process.env.ARIBA_PASSWORD_ADAPTER || "",
+
+//     workspaceId: workspaceId,
+
+//     partition:
+//         process.env.ARIBA_PARTITION || "",
+
+//     variant:
+//         process.env.ARIBA_VARIANT || ""
+// });
+
+// console.log("================================");
+// console.log("ARIBA DOCUMENT IMPORT RESULT");
+// console.log(result);
+// console.log("================================");
+
+
+//         // Send Test Email
+//         //await sendTestMail();
+//             const response = {
+//                 message: "NFA Submitted Successfully",
+//                 nfaID: nfaID,
+//                 procurementID: procurementID
+//             };
+
+//             console.log("================================");
+//             console.log("Submit Response:");
+//             console.log(response);
+//             console.log("================================");
+
+//             return response;
+
         await tx.commit();
-        // Generate PDF for the newly submitted NFA
-const pdf = await generatePDF({
-    procurement: data.procurement,
-    materialHistory: data.materialHistory,
-    sourcingVendorEvaluation: data.sourcingVendorEvaluation,
-    commercialSummary: data.commercialSummary,
-    finalisedTermsConditions: data.finalisedTermsConditions,
-    organisationOther: data.organisationOther,
-    purchaseOrderHeader: data.purchaseOrderHeader,
-    purchaseOrderItem: data.purchaseOrderItem
-});
 
-console.log("PDF generated successfully");
-console.log("PDF size:", pdf.length, "bytes");
+        let aribaWarning = null;
+        try {
+            const pdf = await generatePDF({
+                procurement: data.procurement,
+                materialHistory: data.materialHistory,
+                sourcingVendorEvaluation: data.sourcingVendorEvaluation,
+                commercialSummary: data.commercialSummary,
+                finalisedTermsConditions: data.finalisedTermsConditions,
+                organisationOther: data.organisationOther,
+                purchaseOrderHeader: data.purchaseOrderHeader,
+                purchaseOrderItem: data.purchaseOrderItem
+            });
 
-// Send generated PDF to Ariba
-const result = await importDocument({
+            const result = await importDocument({
+                action: "Create",
+                contents: pdf,
+                documentName: buildDocumentName(
+                    process.env.ARIBA_NFA_FOLDER_NAME || "NFA Document",
+                    `${nfaNumber}.pdf`
+                ),
+                documentId: "",
+                onBehalfUserId: process.env.ARIBA_USER_DESIGNATION,
+                onBehalfUserPasswordAdapter: process.env.ARIBA_PASSWORD_ADAPTER || "",
+                workspaceId,
+                partition: process.env.ARIBA_PARTITION || "",
+                variant: process.env.ARIBA_VARIANT || ""
+            });
+            console.log("ARIBA DOCUMENT IMPORT RESULT", result);
+        } catch (aribaErr) {
+            console.error("NFA saved, but PDF/Ariba import failed:", aribaErr);
+            aribaWarning = aribaErr.message;
+        }
 
-    action: "Create",
+        return {
+            message: aribaWarning
+                ? `NFA saved, but sending to Ariba failed: ${aribaWarning}. Use "Import to Ariba" to retry.`
+                : "NFA Submitted Successfully",
+            nfaID,
+            procurementID
+        };
 
-    contents: pdf,
-
-    documentName: buildDocumentName(
-        process.env.ARIBA_NFA_FOLDER_NAME || "NFA Document",
-        `${nfaNumber}.pdf`
-    ),
-
-    documentId: "",
-
-    onBehalfUserId:
-        process.env.ARIBA_USER_DESIGNATION,
-
-    onBehalfUserPasswordAdapter:
-        process.env.ARIBA_PASSWORD_ADAPTER || "",
-
-    workspaceId: workspaceId,
-
-    partition:
-        process.env.ARIBA_PARTITION || "",
-
-    variant:
-        process.env.ARIBA_VARIANT || ""
-});
-
-console.log("================================");
-console.log("ARIBA DOCUMENT IMPORT RESULT");
-console.log(result);
-console.log("================================");
-
-
-        // Send Test Email
-        //await sendTestMail();
-            const response = {
-                message: "NFA Submitted Successfully",
-                nfaID: nfaID,
-                procurementID: procurementID
-            };
-
-            console.log("================================");
-            console.log("Submit Response:");
-            console.log(response);
-            console.log("================================");
-
-            return response;
     } catch (error) {
 
         await tx.rollback(error);
@@ -431,6 +554,13 @@ console.log("================================");
         req.reject(500, error.message);
     }
 });
+//     } catch (error) {
+
+//         await tx.rollback(error);
+//         console.error(error);
+//         req.reject(500, error.message);
+//     }
+// });
 
     this.on("searchExistingNFA", async (req) => {
         const { nfaNumber } = req.data;

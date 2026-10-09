@@ -83,7 +83,7 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: note-for-approval-${org}-${space}
+        xsappname: note-for-approval-${space}
         tenant-mode: dedicated
   - name: note-for-approval-repo-host
     type: org.cloudfoundry.managed-service
